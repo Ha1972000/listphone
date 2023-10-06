@@ -12,11 +12,23 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   @override
   final List<Contact> contacts = [
-    Contact('Anh', 'Ali'),
-    Contact('Bố ', 'Bà'),
-    Contact('Chang', 'Chiến'),
-    Contact('Dung', 'Dũng'),
-    Contact('Em', 'Én'),
+    // Contact('Anh', 'Ali'),
+    // Contact('Bố ', 'Bà'),
+    // Contact('Chang', 'Chiến'),
+    // Contact('Dung', 'Dũng'),
+    // Contact('Em', 'Én'),
+    Contact('An', '013456789', "Favourite"),
+    Contact('At', '013456789', "Favourite"),
+    Contact('Ak', '013456789', "Favourite"),
+    Contact('Bd', '013456789', "Favourite"),
+    Contact('B3', '013456789', "Favourite"),
+    Contact('B1', '013456789', "Favourite"),
+    Contact('Bd', '013456789', "Favourite"),
+    Contact('Bm', '013456789', "Favourite"),
+    Contact('Ym', '013456789', "Favourite"),
+    Contact('Km', '013456789', "Favourite"),
+    Contact('K1', '013456789', "Favourite"),
+    Contact('Km', '013456789', "Favourite"),
   ];
 
   //   ItemModel("A", "Anh"),
