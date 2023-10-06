@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:listphone/model/ItemModel.dart';
+import 'package:listphone/model/Contact.dart';
+import 'package:listphone/view/second.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
@@ -10,18 +11,26 @@ class homeScreen extends StatefulWidget {
 
 class _homeScreenState extends State<homeScreen> {
   @override
-  final List<ItemModel> contacts = [
-    ItemModel("A", "Anh"),
-    ItemModel("B", "Bố Hải"),
-    ItemModel("", "Bà"),
-    ItemModel("C", "Cu Hùng"),
-    ItemModel("M", "Mẹ"),
-    ItemModel("", "My"),
-    ItemModel("L", "Linh"),
-    ItemModel("L", "Linh"),
-    ItemModel("V", "Vân"),
+  final List<Contact> contacts = [
+    Contact('Anh', 'Ali'),
+    Contact('Bố ', 'Bà'),
+    Contact('Chang', 'Chiến'),
+    Contact('Dung', 'Dũng'),
+    Contact('Em', 'Én'),
   ];
-  List<ItemModel> filteredContacts = [];
+
+  //   ItemModel("A", "Anh"),
+  //   ItemModel("B", "Bố Hải"),
+  //   ItemModel("", "Bà"),
+  //   ItemModel("C", "Cu Hùng"),
+  //   ItemModel("M", "Mẹ"),
+  //   ItemModel("", "My"),
+  //   ItemModel("L", "Linh"),
+  //   ItemModel("L", "Linh"),
+  //   ItemModel("V", "Vân"),
+  // ];
+
+  List<Contact> filteredContacts = [];
 
   void initState() {
     super.initState();
@@ -39,16 +48,20 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    contacts.sort((a, b) => a.name.compareTo(b.name));
+
+    // double topPadding = MediaQuery.of(context).padding.top;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(5.0),
         child: Column(children: [
           Padding(
-            padding: EdgeInsets.only(left: 280, top: 10, bottom: 10),
+            padding: EdgeInsets.only(left: 320, top: 35, bottom: 10),
             child: IconButton(
               icon: new Icon(Icons.add),
               onPressed: () {
-                Text("Liên hệ", style: TextStyle(color: Colors.black));
+                Text('Top Padding: ', style: TextStyle(color: Colors.black));
               },
               iconSize: 35,
               color: Colors.blueAccent,
@@ -62,100 +75,184 @@ class _homeScreenState extends State<homeScreen> {
                     fontSize: 30,
                     fontWeight: FontWeight.w700)),
           ),
-          TextField(
-            onChanged: (query) {
-              filterContacts(query);
-            },
-            style: TextStyle(
-              fontSize: 15, // Đặt kích thước phông chữ
-              height:
-                  0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
-            ),
-            decoration: InputDecoration(
-              fillColor: Colors.black12,
-              filled: true,
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(10.0), // Border radius
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextField(
+              onChanged: (query) {
+                filterContacts(query);
+              },
+              style: TextStyle(
+                fontFamily: 'Arial',
+                fontSize: 18, // Đặt kích thước phông chữ
+                height:
+                    0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
               ),
-              // UnderlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              // border:
-              //     OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              labelText: 'Tìm kiếm',
-              hintText: 'Nhập từ khóa tìm kiếm',
-              prefixIcon: Icon(Icons.search),
+              decoration: InputDecoration(
+                fillColor: Colors.black12,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(10.0), // Border radius
+                ),
+                // UnderlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                // border:
+                //     OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                labelText: 'Tìm kiếm',
+
+                prefixIcon: Icon(Icons.search,size: 20),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Divider(
               // Đường kẻ ngang
+              endIndent: 1,
               height: 1.0,
-              color: Colors.grey,
+              color: Colors.black26,
             ),
           ),
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                // Điều này tạo ra một hình tròn
-                child: Image.asset(
-                  "assets/ha.jpg",
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  // Điều này tạo ra một hình tròn
+                  child: Image.asset(
+                    "assets/ha.jpg",
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: const [
-                    Text("Hà Cute",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 23,
-                            fontWeight: FontWeight.w500)),
-                    Text("Thẻ của tôi",
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 16,
-                        )),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: const [
+                      Text("Hà Cute",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 23,
+                              fontWeight: FontWeight.w500)),
+                      Text("Thẻ của tôi",
+                          style: TextStyle(
+                            color: Colors.black38,
+                            fontSize: 16,
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Container(
-            height: 1,
-            // width: 200,
-            color: Colors.black12,
+
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 10, right: 10),
+            child:Divider(
+              // Đường kẻ ngang
+              endIndent: 1,
+              height: 2.0,
+              color: Colors.black26,
+            ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: filteredContacts.length,
+              itemCount: contacts.length,
               itemBuilder: (context, index) {
-                print("object");
+                // Contact currentContact = contacts[index];
                 final item = filteredContacts[index];
+
+                Contact? previousContact =
+                    index > 0 ? contacts[index - 1] : null;
+
+                // Check if the current contact's name starts with a different letter
+                bool isDifferentLetter = previousContact != null &&
+                    item.name[0] != previousContact.name[0];
+
                 return Column(children: <Widget>[
-                  ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(item.name,
-                          style: TextStyle(
-                              color: Colors.black26,
-                              fontWeight: FontWeight.w700)),
+                  if (isDifferentLetter)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15,left: 15,),
+                      child: Divider(
+                        // Đường kẻ ngang
+                        height: 1.0,
+                        color: Colors.black26,
+                      ),
                     ),
-                    subtitle: Text(item.adress,
+                    ListTile(
+                      title: Text(
+                        item.name[0],
                         style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700)),
+                            fontSize: 18, fontWeight: FontWeight.w500,color: Colors.black26),
+                      ),
+                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15,left: 15),
+                    child: Divider(
+                      // Đường kẻ ngang
+                      endIndent: 1,
+                      height: 1.0,
+                      color: Colors.black26,
+                    ),
                   ),
-                  Divider(
-                    // Đường kẻ ngang
-                    height: 1.0,
-                    color: Colors.black26,
+                  ListTile(
+                    title: Text('Bố'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Second()),
+                      );
+                    },
                   ),
+                //   ListTile(
+                //
+                //
+                //     title: Text(item.name, style: TextStyle(
+                // fontSize: 18, fontWeight: FontWeight.w500),
+                // ),
+                //
+                //   ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15,left: 15,),
+                    child: Divider(
+                      // Đường kẻ ngang
+                      endIndent: 1,
+                      height: 1.0,
+                      color: Colors.black26,
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(item.group,style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15,left: 15,top: 20),
+                    child: Divider(
+                      // Đường kẻ ngang
+                      endIndent: 1,
+                      height: 1.0,
+                      color: Colors.black26,
+                    ),
+                  ),
+                  // final item = filteredContacts[index];
+                  // return Column(children: <Widget>[
+                  //   ListTile(
+                  //     title: Padding(
+                  //       padding: const EdgeInsets.all(0.0),
+                  //       child: Text(item.name,
+                  //           style: TextStyle(
+                  //               color: Colors.black26,
+                  //               fontWeight: FontWeight.w700)),
+                  //     ),
+                  //     subtitle: Text(item.adress,
+                  //         style: TextStyle(
+                  //             color: Colors.black,
+                  //             fontSize: 18,
+                  //             fontWeight: FontWeight.w700)),
+                  //   ),
+
                 ]);
               },
             ),
