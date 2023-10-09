@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:listphone/model/Contact.dart';
 import 'package:listphone/view/second.dart';
-
+import 'package:listphone/view/bottom_sheet.dart';
+import 'package:image_picker/image_picker.dart';
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
 
@@ -12,11 +13,23 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   @override
   final List<Contact> contacts = [
-    Contact('Anh', 'Ali'),
-    Contact('Bố ', 'Bà'),
-    Contact('Chang', 'Chiến'),
-    Contact('Dung', 'Dũng'),
-    Contact('Em', 'Én'),
+    // Contact('Anh', 'Ali'),
+    // Contact('Bố ', 'Bà'),
+    // Contact('Chang', 'Chiến'),
+    // Contact('Dung', 'Dũng'),
+    // Contact('Em', 'Én'),
+    Contact('An', '013456789', "Favourite"),
+    Contact('At', '013456789', "Favourite"),
+    Contact('Ak', '013456789', "Favourite"),
+    Contact('Bd', '013456789', "Favourite"),
+    Contact('B3', '013456789', "Favourite"),
+    Contact('B1', '013456789', "Favourite"),
+    Contact('Bd', '013456789', "Favourite"),
+    Contact('Bm', '013456789', "Favourite"),
+    Contact('Ym', '013456789', "Favourite"),
+    Contact('Km', '013456789', "Favourite"),
+    Contact('K1', '013456789', "Favourite"),
+    Contact('Km', '013456789', "Favourite"),
   ];
 
   //   ItemModel("A", "Anh"),
@@ -61,6 +74,7 @@ class _homeScreenState extends State<homeScreen> {
             child: IconButton(
               icon: new Icon(Icons.add),
               onPressed: () {
+                _showBottomSheet(context);
                 Text('Top Padding: ', style: TextStyle(color: Colors.black));
               },
               iconSize: 35,
@@ -99,7 +113,7 @@ class _homeScreenState extends State<homeScreen> {
                 //     OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                 labelText: 'Tìm kiếm',
 
-                prefixIcon: Icon(Icons.search,size: 20),
+                prefixIcon: Icon(Icons.search, size: 20),
               ),
             ),
           ),
@@ -146,11 +160,9 @@ class _homeScreenState extends State<homeScreen> {
               ],
             ),
           ),
-
           Padding(
-            padding:
-                const EdgeInsets.only(left: 10, right: 10),
-            child:Divider(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Divider(
               // Đường kẻ ngang
               endIndent: 1,
               height: 2.0,
@@ -174,22 +186,27 @@ class _homeScreenState extends State<homeScreen> {
                 return Column(children: <Widget>[
                   if (isDifferentLetter)
                     Padding(
-                      padding: const EdgeInsets.only(right: 15,left: 15,),
+                      padding: const EdgeInsets.only(
+                        right: 15,
+                        left: 15,
+                      ),
                       child: Divider(
                         // Đường kẻ ngang
                         height: 1.0,
                         color: Colors.black26,
                       ),
                     ),
-                    ListTile(
-                      title: Text(
-                        item.name[0],
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500,color: Colors.black26),
-                      ),
+                  ListTile(
+                    title: Text(
+                      item.name[0],
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black26),
                     ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 15,left: 15),
+                    padding: const EdgeInsets.only(right: 15, left: 15),
                     child: Divider(
                       // Đường kẻ ngang
                       endIndent: 1,
@@ -206,16 +223,19 @@ class _homeScreenState extends State<homeScreen> {
                       );
                     },
                   ),
-                //   ListTile(
-                //
-                //
-                //     title: Text(item.name, style: TextStyle(
-                // fontSize: 18, fontWeight: FontWeight.w500),
-                // ),
-                //
-                //   ),
+                  //   ListTile(
+                  //
+                  //
+                  //     title: Text(item.name, style: TextStyle(
+                  // fontSize: 18, fontWeight: FontWeight.w500),
+                  // ),
+                  //
+                  //   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 15,left: 15,),
+                    padding: const EdgeInsets.only(
+                      right: 15,
+                      left: 15,
+                    ),
                     child: Divider(
                       // Đường kẻ ngang
                       endIndent: 1,
@@ -224,11 +244,15 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                   ),
                   ListTile(
-                    title: Text(item.group,style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w500),),
+                    title: Text(
+                      item.group,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 15,left: 15,top: 20),
+                    padding:
+                        const EdgeInsets.only(right: 15, left: 15, top: 20),
                     child: Divider(
                       // Đường kẻ ngang
                       endIndent: 1,
@@ -252,7 +276,6 @@ class _homeScreenState extends State<homeScreen> {
                   //             fontSize: 18,
                   //             fontWeight: FontWeight.w700)),
                   //   ),
-
                 ]);
               },
             ),
@@ -382,5 +405,227 @@ class _homeScreenState extends State<homeScreen> {
         ),
       ),
     );
+  }
+}
+
+class _showBottomSheet extends StatelessWidget {
+  Future<void> _getImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      // Xử lý tệp hình ảnh ở đây
+      print('Đường dẫn tệp hình ảnh: ${pickedFile.path}');
+    } else {
+      // Người dùng đã hủy việc chọn hình ảnh
+      print('Hủy chọn hình ảnh');
+    }
+  }
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Đặt isScrollControlled thành true
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black26,
+                border: Border.all(
+                  color: Colors.blue, // Màu đường viền
+                  width: 2.0, // Độ rộng đường viền
+                ),
+                borderRadius: BorderRadius.circular(8.0), // Độ cong đường viền
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Hủy',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          'Liên hệ mới',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          'Xong',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          // Điều này tạo ra một hình tròn
+                          child: ElevatedButton(
+                            onPressed: () {
+                              _getImageFromGallery();
+                            }, child: Text('Chọn ảnh từ thư viện'),
+                            // width: 70,
+                            // height: 70,
+                            // fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Thêm ảnh',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: "Họ",
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: TextField(
+                            decoration: InputDecoration(hintText: "Tên"),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: TextField(
+                            decoration: InputDecoration(hintText: "Công ty"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60),
+                    child: Container(
+                      height: 50,
+                      width: 380,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.add,
+                            size: 30,
+                            color: Colors.green,
+                          ),
+                          Text("Thêm số điện thoại",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Container(
+                      height: 50,
+                      width: 380,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.add,
+                            size: 30,
+                            color: Colors.green,
+                          ),
+                          Text("Thêm email",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Container(
+                      height: 50,
+                      width: 380,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Text("Nhạc chuông",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300)),
+                            Text("             Mặc định",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  // SizedBox(height: 20.0),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
   }
 }
