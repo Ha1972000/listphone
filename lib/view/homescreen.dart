@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:listphone/model/Contact.dart';
 import 'package:listphone/view/second.dart';
 import 'package:listphone/view/bottom_sheet.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
 
@@ -410,16 +410,16 @@ class _homeScreenState extends State<homeScreen> {
 
 class _showBottomSheet extends StatelessWidget {
   Future<void> _getImageFromGallery() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    // final picker = ImagePicker();
+    // final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      // Xử lý tệp hình ảnh ở đây
-      print('Đường dẫn tệp hình ảnh: ${pickedFile.path}');
-    } else {
-      // Người dùng đã hủy việc chọn hình ảnh
-      print('Hủy chọn hình ảnh');
-    }
+    // if (pickedFile != null) {
+    //   // Xử lý tệp hình ảnh ở đây
+    //   print('Đường dẫn tệp hình ảnh: ${pickedFile.path}');
+    // } else {
+    //   // Người dùng đã hủy việc chọn hình ảnh
+    //   print('Hủy chọn hình ảnh');
+    // }
   }
   _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
