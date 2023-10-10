@@ -50,10 +50,11 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   #  flutter_sticky_header: ^0.6.1
   sticky_grouped_list: ^3.1.0
-  permission_handler: ^10.4.0
   url_launcher: ^6.0.11
   sticky_headers: ^0.3.0+2
-  image_picker: ^0.8.4
+  image_picker: ^0.8.6
+  permission_handler: ^10.3.0
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
