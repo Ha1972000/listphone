@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:listphone/model/Contact.dart';
 import 'package:listphone/view/second.dart';
 import 'package:listphone/view/bottom_sheet.dart';
-// import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
 
@@ -13,11 +18,6 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   @override
   final List<Contact> contacts = [
-    // Contact('Anh', 'Ali'),
-    // Contact('Bố ', 'Bà'),
-    // Contact('Chang', 'Chiến'),
-    // Contact('Dung', 'Dũng'),
-    // Contact('Em', 'Én'),
     Contact('An', '013456789', "Favourite"),
     Contact('At', '013456789', "Favourite"),
     Contact('Ak', '013456789', "Favourite"),
@@ -31,17 +31,6 @@ class _homeScreenState extends State<homeScreen> {
     Contact('K1', '013456789', "Favourite"),
     Contact('Km', '013456789', "Favourite"),
   ];
-
-  //   ItemModel("A", "Anh"),
-  //   ItemModel("B", "Bố Hải"),
-  //   ItemModel("", "Bà"),
-  //   ItemModel("C", "Cu Hùng"),
-  //   ItemModel("M", "Mẹ"),
-  //   ItemModel("", "My"),
-  //   ItemModel("L", "Linh"),
-  //   ItemModel("L", "Linh"),
-  //   ItemModel("V", "Vân"),
-  // ];
 
   List<Contact> filteredContacts = [];
 
@@ -408,146 +397,246 @@ class _homeScreenState extends State<homeScreen> {
   }
 }
 
-class _showBottomSheet extends StatelessWidget {
-  Future<void> _getImageFromGallery() async {
-    // final picker = ImagePicker();
-    // final pickedFile = await picker.getImage(source: ImageSource.gallery);
+// class MyImageAccessScreen extends StatefulWidget {
+//   @override
+//   _MyImageAccessScreenState createState() => _MyImageAccessScreenState();
+// }
+//
+// class _MyImageAccessScreenState extends State<MyImageAccessScreen> {
+//
+//   PermissionStatus _status = PermissionStatus.undetermined;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _checkPermissionStatus();
+//   }
+//
+//   Future<void> _checkPermissionStatus() async {
+//     final status = await Permission.photos.status;
+//     setState(() {
+//       _status = status;
+//     });
+//   }
+//
+//   Future<void> _requestPermission() async {
+//     final status = await Permission.photos.request();
+//     setState(() {
+//       _status = status;
+//     });
+//   }
+//
+//   Future<void> _pickImage() async {
+//     if (_status.isGranted) {
+//       final picker = ImagePicker();
+//       final image = await picker.getImage(source: ImageSource.gallery);
+//
+//       if (image != null) {
+//         // Do something with the selected image
+//         print('Image path: ${image.path}');
+//       }
+//     } else {
+//       // Handle the case when permission is not granted
+//       print('Permission not granted');
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Quyền truy cập ảnh'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             Text(
+//               'Trạng thái quyền: $_status',
+//               style: TextStyle(fontSize: 16),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 if (_status.isUndetermined) {
+//                   _requestPermission();
+//                 } else {
+//                   _pickImage();
+//                 }
+//               },
+//               child: Text('Chọn ảnh'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class _showBottomSheet extends StatelessWidget {
+//
+//   Future<void> _pickImage() async {
+//   final picker = ImagePicker();
+//   final image = await picker.getImage(source: ImageSource.gallery);
+//
+//   if (image != null) {
+//     // Do something with the selected image
+//     print('Image path: ${image.path}');
+//   }
+// }
+class showBottomSheet extends StatefulWidget {
+  const showBottomSheet({super.key, required String title});
 
-    // if (pickedFile != null) {
-    //   // Xử lý tệp hình ảnh ở đây
-    //   print('Đường dẫn tệp hình ảnh: ${pickedFile.path}');
-    // } else {
-    //   // Người dùng đã hủy việc chọn hình ảnh
-    //   print('Hủy chọn hình ảnh');
-    // }
-  }
+  @override
+  State<showBottomSheet> createState() => createState();
+}
+
+class _showBottomSheet extends State<showBottomSheet> {
+  @override
   _showBottomSheet(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
+
+    Future<void> _pickImage() async {
+      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        setState(() {
+          var _image = File(pickedFile.path);
+        });
+      } else {
+        print('No image selected.');
+      }
+    }
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true, // Đặt isScrollControlled thành true
       builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black26,
-                border: Border.all(
-                  color: Colors.blue, // Màu đường viền
-                  width: 2.0, // Độ rộng đường viền
-                ),
-                borderRadius: BorderRadius.circular(8.0), // Độ cong đường viền
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'Hủy',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          'Liên hệ mới',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          'Xong',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.black26,
+            border: Border.all(
+              color: Colors.black12, // Màu đường viền
+            ),
+            borderRadius: BorderRadius.circular(30.0), // Độ cong đường viền
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          // Điều này tạo ra một hình tròn
-                          child: ElevatedButton(
-                            onPressed: () {
-                              _getImageFromGallery();
-                            }, child: Text('Chọn ảnh từ thư viện'),
-                            // width: 70,
-                            // height: 70,
-                            // fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
                       Text(
-                        'Thêm ảnh',
+                        'Hủy',
                         style: TextStyle(
                           fontSize: 20.0,
                           color: Colors.blue,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+                      Text(
+                        'Liên hệ mới',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        'Xong',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
+                ),
+                Column(
+                  children: [
+                    TextButton.icon(
+                      onPressed: _pickImage,
+                      icon: const Icon(Icons.add_a_photo_outlined),
+                      label: const Text(''),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.add_a_photo_outlined,
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
                           child: TextField(
                             decoration: InputDecoration(
                               hintText: "Họ",
                             ),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
                           child: TextField(
                             decoration: InputDecoration(hintText: "Tên"),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
                           child: TextField(
                             decoration: InputDecoration(hintText: "Công ty"),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(top: 60),
-                    child: Container(
-                      height: 50,
-                      width: 380,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
                       ),
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Container(
+                    height: 50,
+                    width: 500,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.add,
-                            size: 30,
-                            color: Colors.green,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            child: Icon(
+                              Icons.add,
+                              size: 30,
+                              color: Colors.green,
+                            ),
                           ),
                           Text("Thêm số điện thoại",
                               textAlign: TextAlign.left,
@@ -559,20 +648,26 @@ class _showBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Container(
-                      height: 50,
-                      width: 380,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Container(
+                    height: 50,
+                    width: 500,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.add,
-                            size: 30,
-                            color: Colors.green,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            child: Icon(
+                              Icons.add,
+                              size: 30,
+                              color: Colors.green,
+                            ),
                           ),
                           Text("Thêm email",
                               textAlign: TextAlign.left,
@@ -584,38 +679,38 @@ class _showBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Container(
-                      height: 50,
-                      width: 380,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Text("Nhạc chuông",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w300)),
-                            Text("             Mặc định",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w300)),
-                          ],
-                        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Container(
+                    height: 50,
+                    width: 500,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Text("Nhạc chuông",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300)),
+                          Text("             Mặc định",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300)),
+                        ],
                       ),
                     ),
                   ),
-                  // SizedBox(height: 20.0),
-                ],
-              ),
+                ),
+                // SizedBox(height: 20.0),
+              ],
             ),
           ),
         );
