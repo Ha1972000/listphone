@@ -4,17 +4,24 @@ import 'package:permission_handler/permission_handler.dart';
 
 class Second extends StatelessWidget {
   const Second({super.key});
+
   Future<void> _requestPhoneCallPermission() async {
+    print("DUONGNA _requestPhoneCallPermission");
     var status = await Permission.phone.request();
     if (status.isGranted) {
       // Quyền đã được cấp, bạn có thể thực hiện cuộc gọi ở đây.
       await launch('tel:+0984512402');
     } else if (status.isDenied) {
-      // Quyền bị từ chối, bạn có thể hiển thị thông báo cho người dùng để hướng dẫn họ cấp quyền.
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.phone
+      ].request();
     } else if (status.isPermanentlyDenied) {
-      // Quyền bị từ chối vĩnh viễn, bạn có thể hướng dẫn người dùng mở cài đặt ứng dụng để cấp quyền.
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.phone
+      ].request();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,27 +81,34 @@ class Second extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        width: 80,
-                        height: 60,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.messenger,
-                                color: Colors.blue,
-                              ),
-                              Text("nhắn tin",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500)),
-                            ],
+                      InkWell(
+                        onTap: () async {
+                          Map<Permission, PermissionStatus> statuses = await [
+                            Permission.phone
+                          ].request();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                          ),
+                          width: 80,
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.messenger,
+                                  color: Colors.blue,
+                                ),
+                                Text("nhắn tin",
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
                           ),
                         ),
                       ),
