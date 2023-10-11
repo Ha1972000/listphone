@@ -40,6 +40,7 @@ class _homeScreenState extends State<homeScreen> {
             child: IconButton(
               icon: new Icon(Icons.add),
               onPressed: () {
+                _showBottomSheet(context);
                 Text('Top Padding: ', style: TextStyle(color: Colors.black));
               },
               iconSize: 35,
@@ -153,14 +154,35 @@ class _homeScreenState extends State<homeScreen> {
               child: ListView.builder(
                   itemCount: homeScreenViewModel.filteredContacts.length,
                   itemBuilder: (context, index) {
-                    return StickyHeader(
-                      header: getItemIcon(index),
-                      content: Text(
-                        homeScreenViewModel.filteredContacts[index].name,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                    );
+                    return
+                      Column(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                        Divider(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 330),
+                              child: StickyHeader(
+                              header: getItemIcon(index),
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  homeScreenViewModel.filteredContacts[index].name,
+                                  style: const TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                          ),
+                            )
+                        ],
+                      );
+                    //   StickyHeader(
+                    //   header: getItemIcon(index),
+                    //   content: Text(
+                    //     homeScreenViewModel.filteredContacts[index].name,
+                    //     style: const TextStyle(
+                    //         fontSize: 18, fontWeight: FontWeight.w500),
+                    //   ),
+                    // );
                   }))
         ]),
       ),
@@ -289,7 +311,32 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
 
+  Widget getItemIcon(index) {
+    //TODO:Change UI of this
+    return (index == 0 ||
+        homeScreenViewModel.filteredContacts[index].name[0] !=
+            homeScreenViewModel.filteredContacts[index - 1].name[0])
+        ? Container(
+      height: 50.0,
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        homeScreenViewModel.filteredContacts[index].name[0],
+        style: const TextStyle(color: Colors.black26),
+      ),
+    )
+        : Container(
+      height: 0.0,
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        'Header #$index',
+        style: const TextStyle(color: Colors.black26),
+      ),
+    );
+  }
 }
+
 
 class showBottomSheet extends StatefulWidget {
   const showBottomSheet({super.key, required String title});
