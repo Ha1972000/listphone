@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:listphone/model/Contact.dart';
+import 'package:listphone/model/contact.dart';
 import 'package:listphone/view/second.dart';
-import 'package:listphone/view/bottom_sheet.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter/material.dart';
+
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
@@ -16,44 +17,20 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+  HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+
   @override
-  final List<Contact> contacts = [
-    Contact('An', '013456789', "Favourite"),
-    Contact('At', '013456789', "Favourite"),
-    Contact('Ak', '013456789', "Favourite"),
-    Contact('Bd', '013456789', "Favourite"),
-    Contact('B3', '013456789', "Favourite"),
-    Contact('B1', '013456789', "Favourite"),
-    Contact('Bd', '013456789', "Favourite"),
-    Contact('Bm', '013456789', "Favourite"),
-    Contact('Ym', '013456789', "Favourite"),
-    Contact('Km', '013456789', "Favourite"),
-    Contact('K1', '013456789', "Favourite"),
-    Contact('Km', '013456789', "Favourite"),
-  ];
-
-  List<Contact> filteredContacts = [];
-
   void initState() {
+    setInitationVariable();
     super.initState();
-    filteredContacts = contacts;
   }
 
-  void filterContacts(String query) {
-    setState(() {
-      filteredContacts = contacts
-          .where((contact) =>
-              contact.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
+  void setInitationVariable() {
+    homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
   }
 
   @override
   Widget build(BuildContext context) {
-    contacts.sort((a, b) => a.name.compareTo(b.name));
-
-    // double topPadding = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(5.0),
@@ -63,32 +40,45 @@ class _homeScreenState extends State<homeScreen> {
             child: IconButton(
               icon: new Icon(Icons.add),
               onPressed: () {
-                _showBottomSheet(context);
                 Text('Top Padding: ', style: TextStyle(color: Colors.black));
               },
               iconSize: 35,
               color: Colors.blueAccent,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 250, top: 10, bottom: 10),
-            child: Text("Liên hệ",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700)),
+          InkWell(
+            onTap: () {
+              context.setLocale(Locale('en', 'US'));
+              // context.resetLocale();
+              setState(() {});
+            },
+            onDoubleTap: () {
+              context.setLocale(Locale('vi', 'VI'));
+              // context.resetLocale();
+              setState(() {});
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 250, top: 10, bottom: 10),
+              child: Text("contact",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700)).tr(),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               onChanged: (query) {
-                filterContacts(query);
+                setState(() {
+                  homeScreenViewModel.updateListContact(query);
+                });
               },
               style: TextStyle(
                 fontFamily: 'Arial',
                 fontSize: 18, // Đặt kích thước phông chữ
                 height:
-                    0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
+                0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
               ),
               decoration: InputDecoration(
                 fillColor: Colors.black12,
@@ -158,117 +148,20 @@ class _homeScreenState extends State<homeScreen> {
               color: Colors.black26,
             ),
           ),
+
           Expanded(
-            child: ListView.builder(
-              itemCount: contacts.length,
-              itemBuilder: (context, index) {
-                // Contact currentContact = contacts[index];
-                final item = filteredContacts[index];
-
-                Contact? previousContact =
-                    index > 0 ? contacts[index - 1] : null;
-
-                // Check if the current contact's name starts with a different letter
-                bool isDifferentLetter = previousContact != null &&
-                    item.name[0] != previousContact.name[0];
-
-                return Column(children: <Widget>[
-                  if (isDifferentLetter)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 15,
-                        left: 15,
+              child: ListView.builder(
+                  itemCount: homeScreenViewModel.filteredContacts.length,
+                  itemBuilder: (context, index) {
+                    return StickyHeader(
+                      header: getItemIcon(index),
+                      content: Text(
+                        homeScreenViewModel.filteredContacts[index].name,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
                       ),
-                      child: Divider(
-                        // Đường kẻ ngang
-                        height: 1.0,
-                        color: Colors.black26,
-                      ),
-                    ),
-                  ListTile(
-                    title: Text(
-                      item.name[0],
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black26),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15, left: 15),
-                    child: Divider(
-                      // Đường kẻ ngang
-                      endIndent: 1,
-                      height: 1.0,
-                      color: Colors.black26,
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('Bố'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Second()),
-                      );
-                    },
-                  ),
-                  //   ListTile(
-                  //
-                  //
-                  //     title: Text(item.name, style: TextStyle(
-                  // fontSize: 18, fontWeight: FontWeight.w500),
-                  // ),
-                  //
-                  //   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: 15,
-                      left: 15,
-                    ),
-                    child: Divider(
-                      // Đường kẻ ngang
-                      endIndent: 1,
-                      height: 1.0,
-                      color: Colors.black26,
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      item.group,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(right: 15, left: 15, top: 20),
-                    child: Divider(
-                      // Đường kẻ ngang
-                      endIndent: 1,
-                      height: 1.0,
-                      color: Colors.black26,
-                    ),
-                  ),
-                  // final item = filteredContacts[index];
-                  // return Column(children: <Widget>[
-                  //   ListTile(
-                  //     title: Padding(
-                  //       padding: const EdgeInsets.all(0.0),
-                  //       child: Text(item.name,
-                  //           style: TextStyle(
-                  //               color: Colors.black26,
-                  //               fontWeight: FontWeight.w700)),
-                  //     ),
-                  //     subtitle: Text(item.adress,
-                  //         style: TextStyle(
-                  //             color: Colors.black,
-                  //             fontSize: 18,
-                  //             fontWeight: FontWeight.w700)),
-                  //   ),
-                ]);
-              },
-            ),
-          ),
+                    );
+                  }))
         ]),
       ),
       bottomNavigationBar: Container(
