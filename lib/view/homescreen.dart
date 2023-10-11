@@ -40,6 +40,7 @@ class _homeScreenState extends State<homeScreen> {
             child: IconButton(
               icon: new Icon(Icons.add),
               onPressed: () {
+                _showBottomSheet(context);
                 Text('Top Padding: ', style: TextStyle(color: Colors.black));
               },
               iconSize: 35,
@@ -289,7 +290,32 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
 
+  Widget getItemIcon(index) {
+    //TODO:Change UI of this
+    return (index == 0 ||
+        homeScreenViewModel.filteredContacts[index].name[0] !=
+            homeScreenViewModel.filteredContacts[index - 1].name[0])
+        ? Container(
+      height: 50.0,
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        homeScreenViewModel.filteredContacts[index].name[0],
+        style: const TextStyle(color: Colors.black26),
+      ),
+    )
+        : Container(
+      height: 0.0,
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        'Header #$index',
+        style: const TextStyle(color: Colors.black26),
+      ),
+    );
+  }
 }
+
 
 class showBottomSheet extends StatefulWidget {
   const showBottomSheet({super.key, required String title});
