@@ -397,92 +397,6 @@ class _homeScreenState extends State<homeScreen> {
   }
 }
 
-// class MyImageAccessScreen extends StatefulWidget {
-//   @override
-//   _MyImageAccessScreenState createState() => _MyImageAccessScreenState();
-// }
-//
-// class _MyImageAccessScreenState extends State<MyImageAccessScreen> {
-//
-//   PermissionStatus _status = PermissionStatus.undetermined;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _checkPermissionStatus();
-//   }
-//
-//   Future<void> _checkPermissionStatus() async {
-//     final status = await Permission.photos.status;
-//     setState(() {
-//       _status = status;
-//     });
-//   }
-//
-//   Future<void> _requestPermission() async {
-//     final status = await Permission.photos.request();
-//     setState(() {
-//       _status = status;
-//     });
-//   }
-//
-//   Future<void> _pickImage() async {
-//     if (_status.isGranted) {
-//       final picker = ImagePicker();
-//       final image = await picker.getImage(source: ImageSource.gallery);
-//
-//       if (image != null) {
-//         // Do something with the selected image
-//         print('Image path: ${image.path}');
-//       }
-//     } else {
-//       // Handle the case when permission is not granted
-//       print('Permission not granted');
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Quyền truy cập ảnh'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Text(
-//               'Trạng thái quyền: $_status',
-//               style: TextStyle(fontSize: 16),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 if (_status.isUndetermined) {
-//                   _requestPermission();
-//                 } else {
-//                   _pickImage();
-//                 }
-//               },
-//               child: Text('Chọn ảnh'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-//
-// class _showBottomSheet extends StatelessWidget {
-//
-//   Future<void> _pickImage() async {
-//   final picker = ImagePicker();
-//   final image = await picker.getImage(source: ImageSource.gallery);
-//
-//   if (image != null) {
-//     // Do something with the selected image
-//     print('Image path: ${image.path}');
-//   }
-// }
 class showBottomSheet extends StatefulWidget {
   const showBottomSheet({super.key, required String title});
 
@@ -514,7 +428,6 @@ class _showBottomSheet extends State<showBottomSheet> {
         return Container(
           decoration: BoxDecoration(
             color: Colors.black26,
-
             borderRadius: BorderRadius.circular(50.0), // Độ cong đường viền
           ),
           child: SingleChildScrollView(
@@ -557,18 +470,14 @@ class _showBottomSheet extends State<showBottomSheet> {
                   children: [
                     TextButton.icon(
                       onPressed: _pickImage,
-                      icon: const Icon(Icons.add_a_photo_outlined),
+                      icon: const Icon(Icons.add_a_photo_outlined, size: 50,color: Colors.black,),
                       label: const Text(''),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.add_a_photo_outlined,
-                            )),
+                        child: Text("Thêm ảnh",style:TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.w500)),
                       ),
                     ),
                   ],

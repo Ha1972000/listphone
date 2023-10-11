@@ -39,8 +39,11 @@ class Second extends StatelessWidget {
                           color: Colors.blue,
                           fontSize: 25,
                           fontWeight: FontWeight.w700)),
-                  Text('Sửa', style: TextStyle(color: Colors.blue, fontSize: 25,
-                      fontWeight: FontWeight.w700)),
+                  Text('Sửa',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w700)),
                 ],
               ),
             ),
@@ -59,7 +62,7 @@ class Second extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Text("Bà",
                       style: TextStyle(
                           color: Colors.black,
@@ -82,9 +85,9 @@ class Second extends StatelessWidget {
                             color: Colors.white,
                           ),
                           width: 80,
-                          height: 60,
+                          height: 50,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Column(
                               children: [
                                 Icon(
@@ -94,7 +97,7 @@ class Second extends StatelessWidget {
                                 Text("nhắn tin",
                                     style: TextStyle(
                                         color: Colors.blue,
-                                        fontSize: 15,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w500)),
                               ],
                             ),
@@ -107,22 +110,33 @@ class Second extends StatelessWidget {
                           color: Colors.white,
                         ),
                         width: 80,
-                        height: 60,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              ElevatedButton(
-                                onPressed: _requestPhoneCallPermission,
-                                child: Text('Call'),
+                        height: 50,
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: SizedBox(
+                                width: 20,
+                                height: 30,
+                                child: IconButton(
+                                  color: Colors.black,
+                                  icon: const Icon(
+                                    Icons.call,
+                                    color: Colors.blue,
+
+                                  ),
+                                  onPressed: _requestPhoneCallPermission,
+                                ),
                               ),
-                              Text("gọi",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
+                            ),
+                            Text("Gọi",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500)),
+                          ],
                         ),
                       ),
                       Container(
@@ -131,9 +145,9 @@ class Second extends StatelessWidget {
                           color: Colors.white,
                         ),
                         width: 80,
-                        height: 60,
+                        height: 50,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: Column(
                             children: [
                               Icon(
@@ -143,7 +157,7 @@ class Second extends StatelessWidget {
                               Text("video",
                                   style: TextStyle(
                                       color: Colors.blue,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
@@ -155,9 +169,9 @@ class Second extends StatelessWidget {
                           color: Colors.white,
                         ),
                         width: 80,
-                        height: 60,
+                        height: 50,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: Column(
                             children: [
                               Icon(
@@ -167,7 +181,7 @@ class Second extends StatelessWidget {
                               Text("gửi thư",
                                   style: TextStyle(
                                       color: Colors.blue,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
