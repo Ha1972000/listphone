@@ -514,10 +514,8 @@ class _showBottomSheet extends State<showBottomSheet> {
         return Container(
           decoration: BoxDecoration(
             color: Colors.black26,
-            border: Border.all(
-              color: Colors.black12, // Màu đường viền
-            ),
-            borderRadius: BorderRadius.circular(30.0), // Độ cong đường viền
+
+            borderRadius: BorderRadius.circular(50.0), // Độ cong đường viền
           ),
           child: SingleChildScrollView(
             child: Column(
