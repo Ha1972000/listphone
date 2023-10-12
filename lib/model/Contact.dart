@@ -1,6 +1,7 @@
 class Contact {
   String name;
-  String group;
+  String phoneNum;
+  String? group;
 
-  Contact(this.name, this.group);
+  Contact(this.name, this.phoneNum, this.group);
 }
