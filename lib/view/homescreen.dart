@@ -8,7 +8,6 @@ import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
 
@@ -61,10 +60,11 @@ class _homeScreenState extends State<homeScreen> {
             child: Padding(
               padding: EdgeInsets.only(right: 250, top: 10, bottom: 10),
               child: Text("contact",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700)).tr(),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700))
+                  .tr(),
             ),
           ),
           Padding(
@@ -79,7 +79,7 @@ class _homeScreenState extends State<homeScreen> {
                 fontFamily: 'Arial',
                 fontSize: 18, // Đặt kích thước phông chữ
                 height:
-                0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
+                    0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
               ),
               decoration: InputDecoration(
                 fillColor: Colors.black12,
@@ -149,40 +149,31 @@ class _homeScreenState extends State<homeScreen> {
               color: Colors.black26,
             ),
           ),
-
           Expanded(
               child: ListView.builder(
                   itemCount: homeScreenViewModel.filteredContacts.length,
                   itemBuilder: (context, index) {
-                    return
-                      Column(
-                     mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                         Divider(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 330),
-                              child: StickyHeader(
-                              header: getItemIcon(index),
-                              content: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  homeScreenViewModel.filteredContacts[index].name,
-                                  style: const TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.w500),
-                                ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 330),
+                          child: StickyHeader(
+                            header: getItemIcon(index),
+                            content: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                homeScreenViewModel
+                                    .filteredContacts[index].name,
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
                               ),
+                            ),
                           ),
-                            )
-                        ],
-                      );
-                    //   StickyHeader(
-                    //   header: getItemIcon(index),
-                    //   content: Text(
-                    //     homeScreenViewModel.filteredContacts[index].name,
-                    //     style: const TextStyle(
-                    //         fontSize: 18, fontWeight: FontWeight.w500),
-                    //   ),
-                    // );
+                        )
+                      ],
+                    );
                   }))
         ]),
       ),
@@ -314,29 +305,28 @@ class _homeScreenState extends State<homeScreen> {
   Widget getItemIcon(index) {
     //TODO:Change UI of this
     return (index == 0 ||
-        homeScreenViewModel.filteredContacts[index].name[0] !=
-            homeScreenViewModel.filteredContacts[index - 1].name[0])
+            homeScreenViewModel.filteredContacts[index].name[0] !=
+                homeScreenViewModel.filteredContacts[index - 1].name[0])
         ? Container(
-      height: 50.0,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        homeScreenViewModel.filteredContacts[index].name[0],
-        style: const TextStyle(color: Colors.black26),
-      ),
-    )
+            height: 50.0,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              homeScreenViewModel.filteredContacts[index].name[0],
+              style: const TextStyle(color: Colors.black26),
+            ),
+          )
         : Container(
-      height: 0.0,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        'Header #$index',
-        style: const TextStyle(color: Colors.black26),
-      ),
-    );
+            height: 0.0,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Header #$index',
+              style: const TextStyle(color: Colors.black26),
+            ),
+          );
   }
 }
-
 
 class showBottomSheet extends StatefulWidget {
   const showBottomSheet({super.key, required String title});
@@ -363,13 +353,16 @@ class _showBottomSheet extends State<showBottomSheet> {
     }
 
     showModalBottomSheet(
+      backgroundColor: Colors.transparent,
       context: context,
       isScrollControlled: true, // Đặt isScrollControlled thành true
       builder: (BuildContext context) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.black26,
-            borderRadius: BorderRadius.circular(50.0), // Độ cong đường viền
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40)), // Độ cong đường viền
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -411,14 +404,22 @@ class _showBottomSheet extends State<showBottomSheet> {
                   children: [
                     TextButton.icon(
                       onPressed: _pickImage,
-                      icon: const Icon(Icons.add_a_photo_outlined, size: 50,color: Colors.black,),
+                      icon: const Icon(
+                        Icons.add_a_photo_outlined,
+                        size: 50,
+                        color: Colors.black,
+                      ),
                       label: const Text(''),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: Text("Thêm ảnh",style:TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.w500)),
+                        child: Text("Thêm ảnh",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500)),
                       ),
                     ),
                   ],
@@ -429,12 +430,13 @@ class _showBottomSheet extends State<showBottomSheet> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.black12,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: TextField(
                             decoration: InputDecoration(
+                              border: InputBorder.none,
                               hintText: "Họ",
                             ),
                           ),
@@ -442,23 +444,29 @@ class _showBottomSheet extends State<showBottomSheet> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.black12,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: TextField(
-                            decoration: InputDecoration(hintText: "Tên"),
+                            decoration: InputDecoration(
+                              hintText: "Tên",
+                              border: InputBorder.none,
+                            ),
                           ),
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.black12,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: TextField(
-                            decoration: InputDecoration(hintText: "Công ty"),
+                            decoration: InputDecoration(
+                              hintText: "Công ty",
+                              border: InputBorder.none,
+                            ),
                           ),
                         ),
                       ),
@@ -472,7 +480,7 @@ class _showBottomSheet extends State<showBottomSheet> {
                     height: 50,
                     width: 500,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.black12,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -503,7 +511,7 @@ class _showBottomSheet extends State<showBottomSheet> {
                     height: 50,
                     width: 500,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.black12,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -534,7 +542,7 @@ class _showBottomSheet extends State<showBottomSheet> {
                     height: 50,
                     width: 500,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.black12,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
