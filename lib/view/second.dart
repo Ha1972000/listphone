@@ -69,7 +69,7 @@ class Second extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(7.0),
                   child: Text("Bà",
                       style: TextStyle(
                           color: Colors.black,
@@ -77,7 +77,7 @@ class Second extends StatelessWidget {
                           fontWeight: FontWeight.w700)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -93,9 +93,9 @@ class Second extends StatelessWidget {
                             color: Colors.white,
                           ),
                           width: 80,
-                          height: 60,
+                          height: 50,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Column(
                               children: [
                                 Icon(
@@ -105,7 +105,7 @@ class Second extends StatelessWidget {
                                 Text("nhắn tin",
                                     style: TextStyle(
                                         color: Colors.blue,
-                                        fontSize: 15,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w500)),
                               ],
                             ),
@@ -118,22 +118,31 @@ class Second extends StatelessWidget {
                           color: Colors.white,
                         ),
                         width: 80,
-                        height: 60,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                           ElevatedButton(
-                                onPressed: _requestPhoneCallPermission,
-                                child: Text('Call'),
-                              ),
-                              Text("gọi",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
+                        height: 50,
+                        child: Column(
+                          children: [
+                         SizedBox(
+                           height:15,
+                           width: 13,
+                           child: Padding(
+                             padding: const EdgeInsets.only(right: 22),
+                             child: IconButton(
+                               color: Colors.blue,
+                               icon: Icon(Icons.call),
+                                  onPressed: _requestPhoneCallPermission,
+
+
+                                ),
+                           ),
+                         ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Text('Gọi', style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),),
+                            ),
+                          ],
                         ),
                       ),
                       Container(
@@ -142,9 +151,9 @@ class Second extends StatelessWidget {
                           color: Colors.white,
                         ),
                         width: 80,
-                        height: 60,
+                        height: 50,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: Column(
                             children: [
                               Icon(
@@ -154,7 +163,7 @@ class Second extends StatelessWidget {
                               Text("video",
                                   style: TextStyle(
                                       color: Colors.blue,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
@@ -166,9 +175,9 @@ class Second extends StatelessWidget {
                           color: Colors.white,
                         ),
                         width: 80,
-                        height: 60,
+                        height: 50,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: Column(
                             children: [
                               Icon(
@@ -178,7 +187,7 @@ class Second extends StatelessWidget {
                               Text("gửi thư",
                                   style: TextStyle(
                                       color: Colors.blue,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
@@ -190,7 +199,7 @@ class Second extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
-                      height: 60,
+                      height: 50,
                       width: 380,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -203,11 +212,11 @@ class Second extends StatelessWidget {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.only(right: 250, top: 5),
+                                  const EdgeInsets.only(right: 250, top: 2),
                               child: Text("điện thoại",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w300)),
                             ),
                             Padding(
@@ -215,7 +224,7 @@ class Second extends StatelessWidget {
                                   const EdgeInsets.only(right: 230, top: 2),
                               child: Text("0912345678",
                                   style: TextStyle(
-                                    fontSize: 17,
+                                    fontSize: 15,
                                     color: Colors.blue,
                                   )),
                             ),
@@ -226,7 +235,7 @@ class Second extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
-                      height: 100,
+                      height: 70,
                       width: 380,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -312,7 +321,7 @@ class Second extends StatelessWidget {
                           color: Colors.white,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: Text("Thêm vào mục ưa thích",
                               style: TextStyle(
                                   color: Colors.blue,
@@ -323,7 +332,7 @@ class Second extends StatelessWidget {
                     ),
                   ],
                 ),Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Container(
                     height: 40,
                     width: 380,

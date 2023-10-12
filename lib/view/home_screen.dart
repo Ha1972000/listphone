@@ -4,7 +4,7 @@ import 'package:listphone/model/contact.dart';
 import 'package:listphone/view/second.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../view_model/home_screen_viewmodel.dart';
-
+import 'package:listphone/view/second.dart';
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
 
@@ -223,7 +223,26 @@ class _homeScreenState extends State<homeScreen> {
               child: ListView.builder(
                   itemCount: homeScreenViewModel.filteredContacts.length,
                   itemBuilder: (context, index) {
-                    return StickyHeader(
+                    return Column(
+                        children: [
+                          Divider(),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 320),
+                      child: StickyHeader(
+                        header: getItemIcon(index),
+                        content: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text(
+                            homeScreenViewModel.filteredContacts[index].name,
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ),
+                    ),
+                        ],
+                    );
+                      StickyHeader(
                       header: getItemIcon(index),
                       content: Text(
                         homeScreenViewModel.filteredContacts[index].name,
@@ -368,18 +387,30 @@ class _homeScreenState extends State<homeScreen> {
             height: 50.0,
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             alignment: Alignment.centerLeft,
-            child: Text(
-              homeScreenViewModel.filteredContacts[index].name[0],
-              style: const TextStyle(color: Colors.black26),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Second()));
+              },
+              child: Text(
+                homeScreenViewModel.filteredContacts[index].name[0],
+                style: const TextStyle(color: Colors.black26),
+              ),
             ),
           )
         : Container(
             height: 0.0,
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             alignment: Alignment.centerLeft,
-            child: Text(
-              'Header #$index',
-              style: const TextStyle(color: Colors.black26),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Second()));
+              },
+              child: Text(
+                'Header #$index',
+                style: const TextStyle(color: Colors.black26),
+              ),
             ),
           );
   }
