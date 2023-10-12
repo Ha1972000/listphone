@@ -10,17 +10,17 @@ class HomeScreenViewModel extends BaseViewModel {
 
   final List<Contact> contacts = [
     Contact('An', '013456789', "Favourite"),
-    Contact('At', '013456789', null),
-    Contact('Ak', '013456789', null),
-    Contact('Bd', '013456789', null),
-    Contact('B3', '013456789', null),
-    Contact('B1', '013456789', null),
-    Contact('Bd', '013456789', null),
-    Contact('Bm', '013456789', null),
-    Contact('Ym', '013456789', null),
-    Contact('Km', '013456789', null),
-    Contact('K1', '013456789', "Favourite"),
-    Contact('Km', '013456789', null),
+    Contact('Anh', '013456789', null),
+    Contact('Ba', '013456789', null),
+    Contact('Banh', '013456789', null),
+    Contact('Co', '013456789', null),
+    Contact('Can', '013456789', null),
+    Contact('Yen', '013456789', null),
+    Contact('Kim', '013456789', null),
+    Contact('Phuong', '013456789', null),
+    Contact('Mom', '013456789', null),
+    Contact('Hung', '013456789', "Favourite"),
+    Contact('Hue', '013456789', null),
   ];
   List<Contact> filteredContacts = [];
 
