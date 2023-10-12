@@ -311,18 +311,31 @@ class _homeScreenState extends State<homeScreen> {
             height: 50.0,
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             alignment: Alignment.centerLeft,
-            child: Text(
-              homeScreenViewModel.filteredContacts[index].name[0],
-              style: const TextStyle(color: Colors.black26),
+            child: InkWell(
+
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Second()));
+              },
+
+
+              child: Text(
+                homeScreenViewModel.filteredContacts[index].name[0],
+                style: const TextStyle(color: Colors.black26),
+              ),
             ),
           )
         : Container(
             height: 0.0,
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             alignment: Alignment.centerLeft,
-            child: Text(
-              'Header #$index',
-              style: const TextStyle(color: Colors.black26),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Second()));
+              },
+              child: Text(
+                'Header #$index',
+                style: const TextStyle(color: Colors.black26),
+              ),
             ),
           );
   }

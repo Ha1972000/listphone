@@ -30,12 +30,23 @@ class HomeScreenViewModel extends BaseViewModel {
         .where((contact) =>
         contact.name.toLowerCase().contains(input.toLowerCase())).cast<Contact>()
         .toList();
-    Divider(
-      // Đường kẻ ngang
-      endIndent: 1,
-      height: 2.0,
-      color: Colors.black26,
-    );
     notifyListeners(); // Notify listeners of changes to update the UI.
   }
 }
+//   List<Contact> filteredContacts = [];
+//
+//   // Example method to update data in the ViewModel.
+//   void updateListContact(String input) {
+//     filteredContacts = contacts
+//         .where((contact) =>
+//         contact.name.toLowerCase().contains(input.toLowerCase())).cast<Contact>()
+//         .toList();
+//     Divider(
+//       // Đường kẻ ngang
+//       endIndent: 1,
+//       height: 2.0,
+//       color: Colors.black26,
+//     );
+//     notifyListeners(); // Notify listeners of changes to update the UI.
+//   }
+// }
