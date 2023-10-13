@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'homescreen.dart';
 class _showBottomSheet extends StatelessWidget {
-   _showBottomSheet(BuildContext context) {
+  Color bottomSheetColor = Colors.white; // Màu nền mặc định
+
+  _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true, // Đặt isScrollControlled thành true
