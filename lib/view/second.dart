@@ -263,6 +263,65 @@ class Second extends StatelessWidget {
                             color: Colors.black,
                           ),
                         ),
+                      ),  Padding(
+                        padding: const EdgeInsets.only(
+                            top: 15, left: 15, bottom: 5),
+                        child: Text(
+                          "HHHHHHHHHHHHHHHHH",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 15, left: 15, bottom: 5),
+                        child: Text(
+                          "HHHHHHHHHHHHHHHHH",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 15, left: 15, bottom: 5),
+                        child: Text(
+                          "HHHHHHHHHHHHHHHHH",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 15, left: 15, bottom: 5),
+                        child: Text(
+                          "HHHHHHHHHHHHHHHHH",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 15, left: 15, bottom: 5),
+                        child: Text(
+                          "HHHHHHHHHHHHHHHHH",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
