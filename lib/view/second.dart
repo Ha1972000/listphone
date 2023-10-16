@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class Second extends StatelessWidget {
-  const Second({super.key});
+import '../model/Contact.dart';
 
+class Second extends StatelessWidget {
+  final Contact data;
+  Second({Key? key, required this.data});
   Future<void> _requestPhoneCallPermission() async {
     print("DUONGNA _requestPhoneCallPermission");
     var status = await Permission.phone.request();
@@ -13,12 +15,13 @@ class Second extends StatelessWidget {
       await launch('tel:+0984512402');
     } else if (status.isDenied) {
       Map<Permission, PermissionStatus> statuses =
-          await [Permission.phone].request();
+      await [Permission.phone].request();
     } else if (status.isPermanentlyDenied) {
       Map<Permission, PermissionStatus> statuses =
-          await [Permission.phone].request();
+      await [Permission.phone].request();
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,7 @@ class Second extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Text("Bà",
+                  child:  Text(' ${data.name}',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 25,
@@ -78,7 +81,7 @@ class Second extends StatelessWidget {
                       InkWell(
                         onTap: () async {
                           Map<Permission, PermissionStatus> statuses =
-                              await [Permission.phone].request();
+                          await [Permission.phone].request();
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -189,412 +192,294 @@ class Second extends StatelessWidget {
                     ],
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 15, bottom: 5),
-                        child: Text(
-                          "HHHHHHHHHHHHHHHHH",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.all(5.0),
-                //   child: Container(
-                //       height: 60,
-                //       width: 380,
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.all(Radius.circular(10)),
-                //         color: Colors.white,
-                //       ),
-                //       child: Padding(
-                //         padding: const EdgeInsets.all(5.0),
-                //         child: Column(
-                //           mainAxisAlignment: MainAxisAlignment.start,
-                //           children: [
-                //             Padding(
-                //               padding:
-                //               const EdgeInsets.only(right: 250, top: 5),
-                //               child: Text("điện thoại",
-                //                   style: TextStyle(
-                //                       color: Colors.black,
-                //                       fontSize: 18,
-                //                       fontWeight: FontWeight.w300)),
-                //             ),
-                //             Padding(
-                //               padding:
-                //               const EdgeInsets.only(right: 230, top: 2),
-                //               child: Text("0912345678",
-                //                   style: TextStyle(
-                //                     fontSize: 17,
-                //                     color: Colors.blue,
-                //                   )),
-                //             ),
-                //           ],
-                //         ),
-                //       )),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(5.0),
-                //   child: Container(
-                //       height: 100,
-                //       width: 380,
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.all(Radius.circular(10)),
-                //         color: Colors.white,
-                //       ),
-                //       child: Padding(
-                //         padding: const EdgeInsets.only(top: 20),
-                //         child: SingleChildScrollView(
-                //           child: Column(
-                //             mainAxisAlignment: MainAxisAlignment.start,
-                //             children: [
-                //               Padding(
-                //                 padding: const EdgeInsets.only(right: 270),
-                //                 child: Text("ghi chú",
-                //                     style: TextStyle(
-                //                         color: Colors.black,
-                //                         fontSize: 18,
-                //                         fontWeight: FontWeight.w300)),
-                //               ),
-                //               TextField(
-                //                 decoration: InputDecoration(
-                //                   labelText: '',
-                //                   focusedBorder: UnderlineInputBorder(
-                //                     borderSide: BorderSide(
-                //                         color: Colors
-                //                             .transparent), // Đặt màu trong suốt
-                //                   ),
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       )),
-                // ),
-                // Column(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.all(2.0),
-                //       child: Container(
-                //         height: 40,
-                //         width: 380,
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.all(Radius.circular(10)),
-                //           color: Colors.white,
-                //         ),
-                //         child: Padding(
-                //           padding: const EdgeInsets.all(10.0),
-                //           child: Text("Gửi Tin Nhắn",
-                //               textAlign: TextAlign.left,
-                //               style: TextStyle(
-                //                   color: Colors.blue,
-                //                   fontSize: 18,
-                //                   fontWeight: FontWeight.w300)),
-                //         ),
-                //       ),
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.all(2.0),
-                //       child: Container(
-                //         height: 40,
-                //         width: 380,
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.all(Radius.circular(10)),
-                //           color: Colors.white,
-                //         ),
-                //         child: Padding(
-                //           padding: const EdgeInsets.all(10.0),
-                //           child: Text("Chia sẻ liên hệ",
-                //               style: TextStyle(
-                //                   color: Colors.blue,
-                //                   fontSize: 18,
-                //                   fontWeight: FontWeight.w300)),
-                //         ),
-                //       ),
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.all(2.0),
-                //       child: Container(
-                //         height: 40,
-                //         width: 380,
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.all(Radius.circular(10)),
-                //           color: Colors.white,
-                //         ),
-                //         child: Padding(
-                //           padding: const EdgeInsets.all(10.0),
-                //           child: Text("Thêm vào mục ưa thích",
-                //               style: TextStyle(
-                //                   color: Colors.blue,
-                //                   fontSize: 18,
-                //                   fontWeight: FontWeight.w300)),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Container(
-                //     height: 40,
-                //     width: 380,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.all(Radius.circular(10)),
-                //       color: Colors.white,
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(8.0),
-                //       child: Text("Thêm vào liên hệ khẩn cấp",
-                //           style: TextStyle(
-                //               color: Colors.blue,
-                //               fontSize: 18,
-                //               fontWeight: FontWeight.w300)),
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(3.0),
-                //   child: Container(
-                //     height: 40,
-                //     width: 380,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.all(Radius.circular(10)),
-                //       color: Colors.white,
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(8.0),
-                //       child: Text("Chia sẻ vị trí của tôi",
-                //           style: TextStyle(
-                //               color: Colors.blue,
-                //               fontSize: 18,
-                //               fontWeight: FontWeight.w300)),
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(2.0),
-                //   child: Container(
-                //     height: 50,
-                //     width: 380,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.all(Radius.circular(10)),
-                //       color: Colors.white,
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(8.0),
-                //       child: Text("Chặn người gọi này",
-                //           style: TextStyle(
-                //               color: Colors.red,
-                //               fontSize: 18,
-                //               fontWeight: FontWeight.w300)),
-                //     ),
-                //   ),
-                // ),
-              ],
+
+
+
+
+
+                ]
             ),
+            Expanded(child: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                          height: 60,
+                          width: 380,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(right: 250, top: 5),
+                                  child: Text("điện thoại",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w300)),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(right: 230, top: 2),
+                                  child:    Text(' ${data.phoneNum}',
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.blue,
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        height: 60,
+                        width: 380,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(right: 250, top: 5),
+                                child: Text("ngày sinh",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300)),
+                              ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(right: 230, top: 2),
+                                child: Text("6 tháng 10",
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.blue,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        height: 60,
+                        width: 380,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(right: 250, top: 5),
+                                child: Text("lễ kỉ niệm",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300)),
+                              ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(right: 230, top: 2),
+                                child: Text("6 tháng 10",
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.blue,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                          height: 80,
+                          width: 380,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 270),
+                                    child: Text("ghi chú",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w300)),
+                                  ),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      labelText: '',
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors
+                                                .transparent), // Đặt màu trong suốt
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Container(
+                            height: 40,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("Gửi Tin Nhắn",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300)),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            height: 40,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("Chia sẻ liên hệ",
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300)),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Container(
+                            height: 40,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("Thêm vào mục ưa thích",
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 40,
+                        width: 380,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Thêm vào liên hệ khẩn cấp",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300)),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Container(
+                        height: 40,
+                        width: 380,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Chia sẻ vị trí của tôi",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300)),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 50,
+                        width: 380,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Chặn người gọi này",
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300)),
+                        ),
+                      ),
+                    ),
+
+
+                  ],
+                ),
+              ),
+            ))
           ],
         ),
+
       ),
     );
   }

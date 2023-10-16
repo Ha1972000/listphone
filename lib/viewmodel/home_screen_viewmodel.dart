@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../model/contact.dart';
+import '../model/Contact.dart';
 import 'base_viewmodel.dart'; // Import the base ViewModel
 
 class HomeScreenViewModel extends BaseViewModel {
@@ -10,17 +10,16 @@ class HomeScreenViewModel extends BaseViewModel {
   String get data => _data;
 
   final List<Contact> contacts = [
-    Contact('Anh', '013456789', null),
-    Contact('An', '013456789', null),
-    Contact('Bố', '013456789', null),
-    Contact('Ba', '013456789', null),
-    Contact('Bà', '013456789', null),
-    Contact('Bạn', '013456789', null),
-    Contact('Bè', '013456789', null),
-    Contact('Yến', '013456789', null),
-    Contact('Kiên', '013456789', null),
-    Contact('Kem', '013456789', "Favourite"),
-    Contact('K', '013456789', null),
+    Contact(name: "Anh", phoneNum: "0984512402"),
+    Contact(name:'Bố', phoneNum:'0984562784'),
+    Contact(name:'Ba', phoneNum:'0864587789'),
+    Contact(name:'Bà', phoneNum:'0972264888', ),
+    Contact(name:'Bạn', phoneNum:'0985462566', ),
+    Contact(name:'Bè',phoneNum: '0326215997', ),
+    Contact(name:'Yến', phoneNum:'0956486577', ),
+    Contact(name:'Kiên',phoneNum: '03286595673', ),
+    Contact(name:'Kem', phoneNum:'09121159974', ),
+    Contact(name:'K', phoneNum:'0977886985', ),
   ];
   List<Contact> filteredContacts = [];
 
