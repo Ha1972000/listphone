@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:listphone/model/contact.dart';
+import 'package:listphone/model/Contact.dart';
 import 'package:listphone/view/second.dart';
 import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -19,7 +19,6 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
   int _currentIndex = 0;
-
   var tabColors = Colors.blue;
 
   @override
@@ -239,7 +238,8 @@ class _homeScreenState extends State<homeScreen> {
             child: InkWell(
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Second()));
+                    context, MaterialPageRoute(builder: (context)
+                => Second(data: homeScreenViewModel.filteredContacts[index])));
               },
               child: Text(
                 homeScreenViewModel.filteredContacts[index].name[0],
@@ -253,14 +253,24 @@ class _homeScreenState extends State<homeScreen> {
             alignment: Alignment.centerLeft,
             child: InkWell(
               onTap: () {
+                Contact contact = Contact(name: '',group: "",phoneNum: "");
+                var data;
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Second()));
-              },
-              child: Text(
-                'Header #$index',
-                style: const TextStyle(color: Colors.black26),
-              ),
-            ),
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Second(data: data),
+                  ),
+
+                );
+                //   Navigator.push(
+                //       context, MaterialPageRoute(builder: (context) => Second()));
+                // },
+                child:
+                Text(
+                  'Header #$index',
+                  style: const TextStyle(color: Colors.black26),
+                );
+              }),
           );
   }
 }

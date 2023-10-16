@@ -3,5 +3,5 @@ class Contact {
   String phoneNum;
   String? group;
 
-  Contact(this.name, this.phoneNum, this.group);
+  Contact({required this.name, required this.phoneNum,this.group,});
 }
