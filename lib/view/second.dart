@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:listphone/view/edit_screen.dart';
+import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
-
+import 'package:listphone/view/edit_screen.dart';
 import '../model/Contact.dart';
 
 class Second extends StatelessWidget {
   final Contact data;
-  Second({Key? key, required this.data});
+   Second({Key? key, required this.data});
+  HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+  // int _currentIndex = 0;
+  // var tabColors = Colors.blue;
+
+  // @override
+  // void initState() {
+  //   setInitationVariable();
+  //   super.initState();
+  // }
+  //
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _currentIndex = index;
+  //   });
+  // }
+
+  void setInitationVariable() {
+    homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
+  }
   Future<void> _requestPhoneCallPermission() async {
     print("DUONGNA _requestPhoneCallPermission");
     var status = await Permission.phone.request();
@@ -21,8 +42,6 @@ class Second extends StatelessWidget {
       await [Permission.phone].request();
     }
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +62,23 @@ class Second extends StatelessWidget {
                           color: Colors.blue,
                           fontSize: 25,
                           fontWeight: FontWeight.w700)),
-                  Text('Sửa',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w700)),
+                  InkWell(
+                    onTap: (){
+                      Contact contact = Contact(name: "",group: "",phoneNum: "",birthDay: "",date: "");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditScreen(data: contact),
+                        ),
+
+                      );
+                    },
+                    child: Text('Sửa',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700)),
+                  ),
                 ],
               ),
             ),
@@ -192,11 +223,6 @@ class Second extends StatelessWidget {
                     ],
                   ),
                 ),
-
-
-
-
-
                 ]
             ),
             Expanded(child: SingleChildScrollView(
@@ -482,6 +508,12 @@ class Second extends StatelessWidget {
 
       ),
     );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }
 

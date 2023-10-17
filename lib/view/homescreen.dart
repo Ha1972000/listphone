@@ -69,10 +69,10 @@ class _homeScreenState extends State<homeScreen> {
               child: Padding(
                 padding: EdgeInsets.only(right: 250, top: 10, bottom: 10),
                 child: Text("contact",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700))
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700))
                     .tr(),
               ),
             ),
@@ -88,7 +88,7 @@ class _homeScreenState extends State<homeScreen> {
                   fontFamily: 'Arial',
                   fontSize: 18, // Đặt kích thước phông chữ
                   height:
-                      0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
+                  0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
                 ),
                 decoration: InputDecoration(
                   fillColor: Colors.black12,
@@ -172,12 +172,19 @@ class _homeScreenState extends State<homeScreen> {
                               header: getItemIcon(index),
                               content: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  homeScreenViewModel
-                                      .filteredContacts[index].name,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
+                                child: InkWell(
+                                  onTap:(){
+                                    Navigator.push(
+                                        context, MaterialPageRoute(builder: (context)
+                                    => Second(data: homeScreenViewModel.filteredContacts[index])));
+                                  },
+                                  child: Text(
+                                    homeScreenViewModel
+                                        .filteredContacts[index].name,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ),
                               ),
                             ),
@@ -229,49 +236,45 @@ class _homeScreenState extends State<homeScreen> {
   Widget getItemIcon(index) {
     //TODO:Change UI of this
     return (index == 0 ||
-            homeScreenViewModel.filteredContacts[index].name[0] !=
-                homeScreenViewModel.filteredContacts[index - 1].name[0])
+        homeScreenViewModel.filteredContacts[index].name[0] !=
+            homeScreenViewModel.filteredContacts[index - 1].name[0])
         ? Container(
-            height: 50.0,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            alignment: Alignment.centerLeft,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context)
-                => Second(data: homeScreenViewModel.filteredContacts[index])));
-              },
-              child: Text(
-                homeScreenViewModel.filteredContacts[index].name[0],
-                style: const TextStyle(color: Colors.black26),
-              ),
-            ),
-          )
+      height: 50.0,
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      alignment: Alignment.centerLeft,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context)
+          => Second(data: homeScreenViewModel.filteredContacts[index])));
+        },
+        child: Text(
+          homeScreenViewModel.filteredContacts[index].name[0],
+          style: const TextStyle(color: Colors.black26),
+        ),
+      ),
+    )
         : Container(
-            height: 0.0,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            alignment: Alignment.centerLeft,
-            child: InkWell(
-              onTap: () {
-                Contact contact = Contact(name: '',group: "",phoneNum: "");
-                var data;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Second(data: data),
-                  ),
-
-                );
-                //   Navigator.push(
-                //       context, MaterialPageRoute(builder: (context) => Second()));
-                // },
-                child:
-                Text(
-                  'Header #$index',
-                  style: const TextStyle(color: Colors.black26),
-                );
-              }),
-          );
+      height: 0.0,
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      alignment: Alignment.centerLeft,
+      child: InkWell(
+          onTap: () {
+            // Contact contact = Contact(name: '',group: "",phoneNum: "",birthDay: "",date: "");
+            // var data;
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => Second(data: data),
+            //   ),
+            //
+            // );
+            Text(
+              'Header #$index',
+              style: const TextStyle(color: Colors.black26),
+            );
+          }),
+    );
   }
 }
 
