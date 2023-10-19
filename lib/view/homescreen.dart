@@ -1,13 +1,15 @@
 import 'dart:io';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:listphone/model/Contact.dart';
 import 'package:listphone/view/second.dart';
+import 'package:listphone/viewmodel/data/provider.dart';
 import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:listphone/view/bottom_sheet.dart';
+import 'package:listphone/viewmodel/data/provider.dart';
+import 'package:provider/provider.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key, required String title});
@@ -20,11 +22,29 @@ class _homeScreenState extends State<homeScreen> {
   HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
   int _currentIndex = 0;
   var tabColors = Colors.blue;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
+    _controller.addListener(() {
+      final String text = _controller.text.toLowerCase();
+      _controller.value = _controller.value.copyWith(
+        text: text,
+        selection:
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+
     setInitationVariable();
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   void _onItemTapped(int index) {
@@ -34,11 +54,14 @@ class _homeScreenState extends State<homeScreen> {
   }
 
   void setInitationVariable() {
+    String inputData = homeScreenViewModel.data;
     homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
   }
 
   @override
   Widget build(BuildContext context) {
+    final dataProvider = Provider.of<DataProvider>(context);
+    final dataList = dataProvider.dataList;
     return Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(5.0),
@@ -69,10 +92,10 @@ class _homeScreenState extends State<homeScreen> {
               child: Padding(
                 padding: EdgeInsets.only(right: 250, top: 10, bottom: 10),
                 child: Text("contact",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700))
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w700))
                     .tr(),
               ),
             ),
@@ -88,7 +111,7 @@ class _homeScreenState extends State<homeScreen> {
                   fontFamily: 'Arial',
                   fontSize: 18, // Đặt kích thước phông chữ
                   height:
-                  0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
+                      0.5, // Đặt chiều cao dòng (điều này ảnh hưởng đến khoảng cách giữa các dòng)
                 ),
                 decoration: InputDecoration(
                   fillColor: Colors.black12,
@@ -173,10 +196,13 @@ class _homeScreenState extends State<homeScreen> {
                               content: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: InkWell(
-                                  onTap:(){
+                                  onTap: () {
                                     Navigator.push(
-                                        context, MaterialPageRoute(builder: (context)
-                                    => Second(data: homeScreenViewModel.filteredContacts[index])));
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Second(
+                                                data: homeScreenViewModel
+                                                    .filteredContacts[index])));
                                   },
                                   child: Text(
                                     homeScreenViewModel
@@ -188,7 +214,8 @@ class _homeScreenState extends State<homeScreen> {
                                 ),
                               ),
                             ),
-                          )
+                          ),
+                          // Text(dataList[index].name),
                         ],
                       );
                     }))
@@ -236,45 +263,47 @@ class _homeScreenState extends State<homeScreen> {
   Widget getItemIcon(index) {
     //TODO:Change UI of this
     return (index == 0 ||
-        homeScreenViewModel.filteredContacts[index].name[0] !=
-            homeScreenViewModel.filteredContacts[index - 1].name[0])
+            homeScreenViewModel.filteredContacts[index].name[0] !=
+                homeScreenViewModel.filteredContacts[index - 1].name[0])
         ? Container(
-      height: 50.0,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context)
-          => Second(data: homeScreenViewModel.filteredContacts[index])));
-        },
-        child: Text(
-          homeScreenViewModel.filteredContacts[index].name[0],
-          style: const TextStyle(color: Colors.black26),
-        ),
-      ),
-    )
+            height: 50.0,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Second(
+                            data:
+                                homeScreenViewModel.filteredContacts[index])));
+              },
+              child: Text(
+                homeScreenViewModel.filteredContacts[index].name[0],
+                style: const TextStyle(color: Colors.black26),
+              ),
+            ),
+          )
         : Container(
-      height: 0.0,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: InkWell(
-          onTap: () {
-            // Contact contact = Contact(name: '',group: "",phoneNum: "",birthDay: "",date: "");
-            // var data;
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => Second(data: data),
-            //   ),
-            //
-            // );
-            Text(
-              'Header #$index',
-              style: const TextStyle(color: Colors.black26),
-            );
-          }),
-    );
+            height: 0.0,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.centerLeft,
+            child: InkWell(onTap: () {
+              // Contact contact = Contact(name: '',group: "",phoneNum: "",birthDay: "",date: "");
+              // var data;
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => Second(data: data),
+              //   ),
+              //
+              // );
+              Text(
+                'Header #$index',
+                style: const TextStyle(color: Colors.black26),
+              );
+            }),
+          );
   }
 }
 
@@ -287,8 +316,15 @@ class showBottomSheet extends StatefulWidget {
 
 class _showBottomSheet extends State<showBottomSheet> {
   @override
+  final TextEditingController _textEditingController = TextEditingController();
+  String _savedData = "";
+
+  HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+  List<Contact> dataList = [];
+
   _showBottomSheet(BuildContext context) {
     final ImagePicker _picker = ImagePicker();
+    String inputData = homeScreenViewModel.data;
 
     Future<void> _pickImage() async {
       final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -323,12 +359,17 @@ class _showBottomSheet extends State<showBottomSheet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        'Hủy',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w500,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Hủy',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                       Text(
@@ -339,13 +380,13 @@ class _showBottomSheet extends State<showBottomSheet> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Text(
-                        'Xong',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _showSaveDialog(context);
+                          Provider.of<DataProvider>(context, listen:false).addData(Contact(name: "name", phoneNum: "phoneNum", date: "date", birthDay: "birthDay"));
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Lưu$_savedData'),
                       ),
                     ],
                   ),
@@ -399,6 +440,10 @@ class _showBottomSheet extends State<showBottomSheet> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: TextField(
+                            controller: _textEditingController,
+                            onChanged: (value) {
+                                _savedData = value;
+                            },
                             decoration: InputDecoration(
                               hintText: "Tên",
                               border: InputBorder.none,
@@ -524,9 +569,36 @@ class _showBottomSheet extends State<showBottomSheet> {
     );
   }
 
+  void _showSaveDialog(BuildContext context) {
+    if (_textEditingController.text.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text('Đã lưu'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Đóng'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     throw UnimplementedError();
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }
