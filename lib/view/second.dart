@@ -8,8 +8,11 @@ import '../model/Contact.dart';
 
 class Second extends StatelessWidget {
   final Contact data;
-   Second({Key? key, required this.data});
+
+  Second({Key? key, required this.data});
+
   HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+
   // int _currentIndex = 0;
   // var tabColors = Colors.blue;
 
@@ -28,6 +31,7 @@ class Second extends StatelessWidget {
   void setInitationVariable() {
     homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
   }
+
   Future<void> _requestPhoneCallPermission() async {
     print("DUONGNA _requestPhoneCallPermission");
     var status = await Permission.phone.request();
@@ -36,12 +40,13 @@ class Second extends StatelessWidget {
       await launch('tel:+0984512402');
     } else if (status.isDenied) {
       Map<Permission, PermissionStatus> statuses =
-      await [Permission.phone].request();
+          await [Permission.phone].request();
     } else if (status.isPermanentlyDenied) {
       Map<Permission, PermissionStatus> statuses =
-      await [Permission.phone].request();
+          await [Permission.phone].request();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,14 +68,18 @@ class Second extends StatelessWidget {
                           fontSize: 25,
                           fontWeight: FontWeight.w700)),
                   InkWell(
-                    onTap: (){
-                      Contact contact = Contact(name: "",group: "",phoneNum: "",birthDay: "",date: "");
+                    onTap: () {
+                      Contact contact = Contact(
+                          name: "",
+                          group: "",
+                          phoneNum: "",
+                          birthDay: "",
+                          date: "");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => EditScreen(data: contact),
                         ),
-
                       );
                     },
                     child: Text('Sửa',
@@ -82,89 +91,111 @@ class Second extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
-              children: [
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    // Điều này tạo ra một hình tròn
-                    child: Image.asset(
-                      "assets/ha.jpg",
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                    ),
+            Column(children: [
+              Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  // Điều này tạo ra một hình tròn
+                  child: Image.asset(
+                    "assets/ha.jpg",
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child:  Text(' ${data.name}',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w700)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          Map<Permission, PermissionStatus> statuses =
-                          await [Permission.phone].request();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white,
-                          ),
-                          width: 80,
-                          height: 50,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.messenger,
-                                  color: Colors.blue,
-                                ),
-                                Text("nhắn tin",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(' ${data.name}',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700)),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        Map<Permission, PermissionStatus> statuses =
+                            await [Permission.phone].request();
+                      },
+                      child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: Colors.white,
                         ),
                         width: 80,
                         height: 50,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: SizedBox(
-                                width: 20,
-                                height: 30,
-                                child: IconButton(
-                                  color: Colors.black,
-                                  icon: const Icon(
-                                    Icons.call,
-                                    color: Colors.blue,
-                                  ),
-                                  onPressed: _requestPhoneCallPermission,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.messenger,
+                                color: Colors.blue,
+                              ),
+                              Text("nhắn tin",
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                      ),
+                      width: 80,
+                      height: 50,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: SizedBox(
+                              width: 20,
+                              height: 30,
+                              child: IconButton(
+                                color: Colors.black,
+                                icon: const Icon(
+                                  Icons.call,
+                                  color: Colors.blue,
                                 ),
+                                onPressed: _requestPhoneCallPermission,
                               ),
                             ),
-                            Text("Gọi",
+                          ),
+                          Text("Gọi",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500)),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                      ),
+                      width: 80,
+                      height: 50,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.video_camera_front,
+                              color: Colors.blue,
+                            ),
+                            Text("video",
                                 style: TextStyle(
                                     color: Colors.blue,
                                     fontSize: 14,
@@ -172,98 +203,76 @@ class Second extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        width: 80,
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.video_camera_front,
-                                color: Colors.blue,
-                              ),
-                              Text("video",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                      ),
+                      width: 80,
+                      height: 50,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.mail,
+                              color: Colors.blue,
+                            ),
+                            Text("gửi thư",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500)),
+                          ],
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        width: 80,
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.mail,
-                                color: Colors.blue,
-                              ),
-                              Text("gửi thư",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                ]
-            ),
-            Expanded(child: SingleChildScrollView(
+              ),
+            ]),
+            Expanded(
+                child: SingleChildScrollView(
               child: Container(
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
-                          height: 60,
-                          width: 380,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
+                        height: 60,
+                        width: 380,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 250, top: 5),
+                                child: Text("điện thoại",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300)),
+                              ),
+                              Padding(
                                   padding:
-                                  const EdgeInsets.only(right: 250, top: 5),
-                                  child: Text("điện thoại",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w300)),
-                                ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(right: 230, top: 2),
-                                  child:    Text(' ${data.phoneNum}',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.blue,
-                                      )),
-                                ),
-                              ],
-                            ),
+                                      const EdgeInsets.only(right: 230, top: 2),
+                                  child: Text(
+                                    ' ${data.phoneNum}',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.blue,
+                                    ),
+                                  )),
+                            ],
                           ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -282,7 +291,7 @@ class Second extends StatelessWidget {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.only(right: 250, top: 5),
+                                    const EdgeInsets.only(right: 250, top: 5),
                                 child: Text("ngày sinh",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -291,7 +300,7 @@ class Second extends StatelessWidget {
                               ),
                               Padding(
                                 padding:
-                                const EdgeInsets.only(right: 230, top: 2),
+                                    const EdgeInsets.only(right: 230, top: 2),
                                 child: Text("6 tháng 10",
                                     style: TextStyle(
                                       fontSize: 17,
@@ -319,7 +328,7 @@ class Second extends StatelessWidget {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.only(right: 250, top: 5),
+                                    const EdgeInsets.only(right: 250, top: 5),
                                 child: Text("lễ kỉ niệm",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -328,7 +337,7 @@ class Second extends StatelessWidget {
                               ),
                               Padding(
                                 padding:
-                                const EdgeInsets.only(right: 230, top: 2),
+                                    const EdgeInsets.only(right: 230, top: 2),
                                 child: Text("6 tháng 10",
                                     style: TextStyle(
                                       fontSize: 17,
@@ -386,7 +395,8 @@ class Second extends StatelessWidget {
                             height: 40,
                             width: 380,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                               color: Colors.white,
                             ),
                             child: Padding(
@@ -406,7 +416,8 @@ class Second extends StatelessWidget {
                             height: 40,
                             width: 380,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                               color: Colors.white,
                             ),
                             child: Padding(
@@ -425,7 +436,8 @@ class Second extends StatelessWidget {
                             height: 40,
                             width: 380,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                               color: Colors.white,
                             ),
                             child: Padding(
@@ -497,15 +509,12 @@ class Second extends StatelessWidget {
                         ),
                       ),
                     ),
-
-
                   ],
                 ),
               ),
             ))
           ],
         ),
-
       ),
     );
   }

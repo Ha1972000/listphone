@@ -5,7 +5,6 @@ import 'base_viewmodel.dart'; // Import the base ViewModel
 
 class HomeScreenViewModel extends BaseViewModel {
 
-
   String _data = "Initial Data";
   String get data => _data;
 
@@ -22,30 +21,12 @@ class HomeScreenViewModel extends BaseViewModel {
     Contact(name:'K', phoneNum:'0977886985', birthDay: "12",date: "3"),
   ];
   List<Contact> filteredContacts = [];
-
-  // Example method to update data in the ViewModel.
   void updateListContact(String input) {
     filteredContacts = contacts
         .where((contact) =>
-        contact.name.toLowerCase().contains(input.toLowerCase())).cast<Contact>()
+        contact.name.toLowerCase().contains(input.toLowerCase()))
+        .cast<Contact>()
         .toList();
     notifyListeners(); // Notify listeners of changes to update the UI.
   }
 }
-//   List<Contact> filteredContacts = [];
-//
-//   // Example method to update data in the ViewModel.
-//   void updateListContact(String input) {
-//     filteredContacts = contacts
-//         .where((contact) =>
-//         contact.name.toLowerCase().contains(input.toLowerCase())).cast<Contact>()
-//         .toList();
-//     Divider(
-//       // Đường kẻ ngang
-//       endIndent: 1,
-//       height: 2.0,
-//       color: Colors.black26,
-//     );
-//     notifyListeners(); // Notify listeners of changes to update the UI.
-//   }
-// }

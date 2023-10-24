@@ -7,9 +7,9 @@ import 'package:listphone/viewmodel/data/provider.dart';
 import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:listphone/view/bottom_sheet.dart';
 import 'package:listphone/viewmodel/data/provider.dart';
 import 'package:provider/provider.dart';
+
 class showBottomSheet extends StatefulWidget {
   const showBottomSheet({super.key, required String title});
 
@@ -17,26 +17,26 @@ class showBottomSheet extends StatefulWidget {
   State<showBottomSheet> createState() => createState();
 }
 
+final TextEditingController _textEditingController = TextEditingController();
+String _savedData = "";
+
+// @override
+// void initState() {
+//   super.initState();
+//   _initializeMessage();
+// }
+//
+// void _initializeMessage() {
+//   // Thay đổi trạng thái ở đây
+//   setState(() {
+//     _savedData = 'Hello, World!';
+//   });
+// }
+
+HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+
 class ShowBottomSheet extends State<showBottomSheet> {
   @override
-  final TextEditingController _textEditingController = TextEditingController();
-  String _savedData = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeMessage();
-  }
-
-  void _initializeMessage() {
-    // Thay đổi trạng thái ở đây
-    setState(() {
-      _savedData = 'Hello, World!';
-    });
-  }
-
-  HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
-
   _showBottomSheet(BuildContext context) {
     final ImagePicker _picker = ImagePicker();
     String inputData = homeScreenViewModel.data;
