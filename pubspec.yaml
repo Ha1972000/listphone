@@ -54,7 +54,9 @@ dev_dependencies:
   url_launcher: ^6.0.11
   sticky_headers: ^0.3.0+2
   image_picker: ^0.8.6
-# For information on the generic Dart part of this file, see the
+#  provider: ^7.0.0
+  provider: ^6.0.5
+  # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.

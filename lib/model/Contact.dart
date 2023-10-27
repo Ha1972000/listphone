@@ -2,6 +2,9 @@ class Contact {
   String name;
   String phoneNum;
   String? group;
+  String date;
+  String birthDay;
 
-  Contact(this.name, this.phoneNum, this.group);
+
+  Contact({required this.name, required this.phoneNum,this.group,required this.date,required this.birthDay});
 }
