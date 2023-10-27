@@ -90,7 +90,7 @@ class _ThuThoaiState extends State<ThuThoai> {
                   icon: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => homeScreen()));
+                            MaterialPageRoute(builder: (context) => HomeScreen()));
                       },
                       child: Icon(Icons.list_alt)),
                   label: 'Danh bạ',
@@ -102,7 +102,7 @@ class _ThuThoaiState extends State<ThuThoai> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    homeScreen()));
+                                    HomeScreen()));
                       },
                       child: Icon(Icons.confirmation_number)),
                   label: 'Bàn phím',

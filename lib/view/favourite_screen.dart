@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:listphone/model/Contact.dart';
+
+import '../viewmodel/home_screen_viewmodel.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,6 +12,11 @@ class Contactt {
   final String phoneNumber;
 
   Contactt(this.name, this.phoneNumber);
+}
+HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+final List<Contact> contacts = <Contact>[];
+void setInitationVariable() {
+  homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
 }
 
 class MyApp extends StatelessWidget {
@@ -33,22 +41,37 @@ class _ContactListState extends State<ContactList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Danh Bạ'),
+
       ),
-      body: ListView.builder(
-        itemCount: contacts.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(contacts[index].name),
-            subtitle: Text(contacts[index].phoneNumber),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _addContact(context);
-        },
-        child: Icon(Icons.add),
-      ),
+
+      body:Container(
+
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: IconButton(
+                onPressed: () {
+                  _addContact(context);
+                },
+                icon: Icon(Icons.add,color: Colors.red),
+
+              ),
+            ), ListView.builder(
+              itemCount: contacts.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(contacts[index].name),
+                  subtitle: Text(contacts[index].phoneNumber),
+                );
+              },
+            ),
+
+          ],
+        ),
+      )
+
+
     );
   }
 

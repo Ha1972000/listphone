@@ -1,45 +1,30 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:listphone/model/Contact.dart';
-import 'package:listphone/view/second.dart';
-import 'package:listphone/viewmodel/data/provider.dart';
-import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:listphone/viewmodel/data/provider.dart';
-import 'package:provider/provider.dart';
+import 'package:listphone/view/homescreen.dart';
 
-class showBottomSheet extends StatefulWidget {
-  const showBottomSheet({super.key, required String title});
-
-  @override
-  State<showBottomSheet> createState() => createState();
-}
-
-final TextEditingController _textEditingController = TextEditingController();
-String _savedData = "";
-
-// @override
-// void initState() {
-//   super.initState();
-//   _initializeMessage();
-// }
+import '../model/Contact.dart';
+import '../view/favourite_screen.dart';
+import 'home_screen_viewmodel.dart';
+// class showBottomSheet extends StatefulWidget {
+//   const showBottomSheet({super.key, required String title});
 //
-// void _initializeMessage() {
-//   // Thay đổi trạng thái ở đây
-//   setState(() {
-//     _savedData = 'Hello, World!';
-//   });
+//   @override
+//   State<showBottomSheet> createState() => createState();
 // }
 
-HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
-
-class ShowBottomSheet extends State<showBottomSheet> {
+class ShowBottomSheet extends State<HomeScreen> {
+  HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+  var tabColors = Colors.blue;
+  final List<Contact> contacts = <Contact>[];
+  void setInitationVariable() {
+    homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
+  }
   @override
   _showBottomSheet(BuildContext context) {
     final ImagePicker _picker = ImagePicker();
-    String inputData = homeScreenViewModel.data;
+
     Future<void> _pickImage() async {
       final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -53,7 +38,7 @@ class ShowBottomSheet extends State<showBottomSheet> {
     }
 
     showModalBottomSheet(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.blue,
       context: context,
       isScrollControlled: true, // Đặt isScrollControlled thành true
       builder: (BuildContext context) {
@@ -73,12 +58,18 @@ class ShowBottomSheet extends State<showBottomSheet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        'Hủy',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w500,
+                      InkWell(
+
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'Hủy',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                       Text(
@@ -89,11 +80,13 @@ class ShowBottomSheet extends State<showBottomSheet> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          _showSaveDialog(context);
-                        },
-                        child: Text('Đã lưu: $_savedData'),
+                      Text(
+                        'Xong',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
@@ -147,13 +140,8 @@ class ShowBottomSheet extends State<showBottomSheet> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: TextField(
-                            controller: _textEditingController,
-                            onChanged: (value) {
-                              setState(() {
-                                _savedData = value;
-                              });
-                            },
                             decoration: InputDecoration(
+                              hintText: "Tên",
                               border: InputBorder.none,
                             ),
                           ),
@@ -275,32 +263,6 @@ class ShowBottomSheet extends State<showBottomSheet> {
         );
       },
     );
-  }
-
-  void _showSaveDialog(BuildContext context) {
-    if (_textEditingController.text.isNotEmpty) {
-      setState(() {
-        _savedData = _textEditingController.text;
-      });
-
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Thông báo'),
-            content: Text('Đã lưu: $_savedData'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Đóng'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
   }
 
   @override

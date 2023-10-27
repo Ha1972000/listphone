@@ -108,7 +108,7 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => homeScreen()));
+                                builder: (context) => HomeScreen()));
                       },
                       child: Icon(Icons.list_alt)),
                   label: 'Danh bạ',
@@ -119,7 +119,7 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => homeScreen()));
+                                builder: (context) => HomeScreen()));
                       },
                       child: Icon(Icons.confirmation_number)),
                   label: 'Bàn phím',

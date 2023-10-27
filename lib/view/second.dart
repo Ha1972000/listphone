@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:listphone/view/edit_screen.dart';
 import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
@@ -5,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:listphone/view/edit_screen.dart';
 import '../model/Contact.dart';
+import '../viewmodel/textMessage_BottomSheet.dart';
 
 class Second extends StatelessWidget {
   final Contact data;
@@ -12,21 +15,6 @@ class Second extends StatelessWidget {
   Second({Key? key, required this.data});
 
   HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
-
-  // int _currentIndex = 0;
-  // var tabColors = Colors.blue;
-
-  // @override
-  // void initState() {
-  //   setInitationVariable();
-  //   super.initState();
-  // }
-  //
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _currentIndex = index;
-  //   });
-  // }
 
   void setInitationVariable() {
     homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
@@ -40,10 +28,10 @@ class Second extends StatelessWidget {
       await launch('tel:+0984512402');
     } else if (status.isDenied) {
       Map<Permission, PermissionStatus> statuses =
-          await [Permission.phone].request();
+      await [Permission.phone].request();
     } else if (status.isPermanentlyDenied) {
       Map<Permission, PermissionStatus> statuses =
-          await [Permission.phone].request();
+      await [Permission.phone].request();
     }
   }
 
@@ -69,17 +57,12 @@ class Second extends StatelessWidget {
                           fontWeight: FontWeight.w700)),
                   InkWell(
                     onTap: () {
-                      Contact contact = Contact(
-                          name: "",
-                          group: "",
-                          phoneNum: "",
-                          birthDay: "",
-                          date: "");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditScreen(data: contact),
-                        ),
+                            builder: (context) => EditScreen(
+                              data:data,
+                            )),
                       );
                     },
                     child: Text('Sửa',
@@ -113,38 +96,55 @@ class Second extends StatelessWidget {
                         fontWeight: FontWeight.w700)),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    InkWell(
-                      onTap: () async {
-                        Map<Permission, PermissionStatus> statuses =
-                            await [Permission.phone].request();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        width: 80,
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.messenger,
-                                color: Colors.blue,
-                              ),
-                              Text("nhắn tin",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500)),
-                            ],
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                      ),
+                      width: 80,
+                      height: 50,
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            width: 80,
+                            height: 50,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: SizedBox(
+                                    width: 20,
+                                    height: 30,
+                                    child: IconButton(
+                                        color: Colors.black,
+                                        icon: const Icon(
+                                          Icons.messenger,
+                                          color: Colors.blue,
+                                        ),
+                                        onPressed: () {
+                                          TextMessageBottomSheet();
+                                        }),
+                                  ),
+                                ),
+                                Text("nhắn tin",
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                     Container(
@@ -234,175 +234,239 @@ class Second extends StatelessWidget {
             ]),
             Expanded(
                 child: SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        height: 60,
-                        width: 380,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 250, top: 5),
-                                child: Text("điện thoại",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w300)),
-                              ),
-                              Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 230, top: 2),
-                                  child: Text(
-                                    ' ${data.phoneNum}',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.blue,
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        height: 60,
-                        width: 380,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 250, top: 5),
-                                child: Text("ngày sinh",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w300)),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 230, top: 2),
-                                child: Text("6 tháng 10",
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.blue,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        height: 60,
-                        width: 380,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 250, top: 5),
-                                child: Text("lễ kỉ niệm",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w300)),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 230, top: 2),
-                                child: Text("6 tháng 10",
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.blue,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                          height: 80,
-                          width: 380,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: SingleChildScrollView(
+                          child: Container(
+                            height: 60,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 270),
-                                    child: Text("ghi chú",
+                                    padding:
+                                    const EdgeInsets.only(right: 270, top: 5),
+                                    child: Text("điện thoại",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w300)),
                                   ),
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      labelText: '',
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors
-                                                .transparent), // Đặt màu trong suốt
-                                      ),
-                                    ),
-                                  )
+                                  Padding(
+                                      padding:
+                                      const EdgeInsets.only(right: 250, top: 2),
+                                      child: Text(
+                                        ' ${data.phoneNum}',
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.blue,
+                                        ),
+                                      )),
                                 ],
                               ),
                             ),
-                          )),
-                    ),
-                    Column(
-                      children: [
+                          ),
+                        ),
                         Padding(
-                          padding: const EdgeInsets.all(1.0),
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            height: 60,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(right: 270, top: 5),
+                                    child: Text("ngày sinh",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w300)),
+                                  ),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(right: 260, top: 2),
+                                    child: Text("6 tháng 10",
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.blue,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            height: 60,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(right: 270, top: 5),
+                                    child: Text("lễ kỉ niệm",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w300)),
+                                  ),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(right: 260, top: 2),
+                                    child: Text("6 tháng 10",
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.blue,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                              height: 80,
+                              width: 380,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                color: Colors.white,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 290),
+                                        child: Text("ghi chú",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w300)),
+                                      ),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          labelText: '',
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors
+                                                    .transparent), // Đặt màu trong suốt
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(0.5),
+                                child: Container(
+                                  height: 40,
+                                  width: 380,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text("Gửi Tin Nhắn",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w300)),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(0.5),
+                                child: Container(
+                                  height: 40,
+                                  width: 380,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text("Chia sẻ liên hệ",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w300)),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(0.5),
+                                child: Container(
+                                  height: 40,
+                                  width: 380,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text("Thêm vào mục ưa thích",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w300)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
                           child: Container(
                             height: 40,
                             width: 380,
                             decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
                               color: Colors.white,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text("Gửi Tin Nhắn",
-                                  textAlign: TextAlign.left,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Thêm vào liên hệ khẩn cấp",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 18,
@@ -411,18 +475,17 @@ class Second extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(3.0),
                           child: Container(
                             height: 40,
                             width: 380,
                             decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
                               color: Colors.white,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text("Chia sẻ liên hệ",
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Chia sẻ vị trí của tôi",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 18,
@@ -431,20 +494,19 @@ class Second extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(1.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: 40,
+                            height: 50,
                             width: 380,
                             decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
                               color: Colors.white,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text("Thêm vào mục ưa thích",
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Chặn người gọi này",
                                   style: TextStyle(
-                                      color: Colors.blue,
+                                      color: Colors.red,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w300)),
                             ),
@@ -452,67 +514,8 @@ class Second extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 40,
-                        width: 380,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Thêm vào liên hệ khẩn cấp",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300)),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Container(
-                        height: 40,
-                        width: 380,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Chia sẻ vị trí của tôi",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300)),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 50,
-                        width: 380,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Chặn người gọi này",
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300)),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ))
+                  ),
+                ))
           ],
         ),
       ),

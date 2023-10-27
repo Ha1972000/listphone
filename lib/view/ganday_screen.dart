@@ -20,19 +20,18 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Phone Keyboard Example'),
+        title: Text('Gần đây'),
       ),
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TextField(
-                controller: _phoneNumberController,
-                decoration: InputDecoration(labelText: 'Enter phone number'),
-                keyboardType: TextInputType.phone, // Đặt kiểu bàn phím thành số điện thoại
-
-              ),
+             Center(
+               child: Text("XXX,",style: TextStyle(
+                 fontSize: 30,color: Colors.blue
+               ),),
+             )
 
             ],
 

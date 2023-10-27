@@ -40,7 +40,7 @@ class App extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         initialRoute: '/',
-        home: const homeScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
