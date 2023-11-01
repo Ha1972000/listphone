@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:listphone/view/damthoai_screen.dart';
+import 'package:listphone/view/test.dart';
+import 'package:listphone/view/voicemail_screen.dart';
 import 'package:listphone/view/favourite_screen.dart';
-import 'package:listphone/view/ganday_screen.dart';
-import 'package:listphone/view/nhapso_screen.dart';
-import 'package:listphone/view/second.dart';
+import 'package:listphone/view/recent_screen.dart';
+import 'package:listphone/view/keyboard_screen.dart';
+import 'package:listphone/view/listview_screen.dart';
 import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,6 +44,14 @@ class _homeScreenState extends State<HomeScreen> {
     setState(() {
       _currentIndex = index;
     });
+
+    if (index == 4) {
+      // Nếu mục "Yêu thích" được chọn, điều hướng đến màn hình FavoriteScreen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ContactList()),
+      );
+    }
   }
 
   void setInitationVariable() {
@@ -235,10 +244,8 @@ class _homeScreenState extends State<HomeScreen> {
                 BottomNavigationBarItem(
                   icon: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyHomePage()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Recent()));
                       },
                       child: Icon(Icons.timelapse)),
                   label: 'Gần đây',
@@ -249,13 +256,20 @@ class _homeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyCustomKeyboard()));
+                                builder: (context) => HomeScreen()));
                       },
                       child: Icon(Icons.list_alt)),
                   label: 'Danh bạ',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.confirmation_number),
+                  icon: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyCustomKeyboard()));
+                      },
+                      child: Icon(Icons.confirmation_number)),
                   label: 'Nhập số',
                 ),
                 BottomNavigationBarItem(
@@ -264,7 +278,9 @@ class _homeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ThuThoai()));
+                                // builder: (context) => MyHomePage()));
+
+                                builder: (context) => Voicemail()));
                       },
                       child: Icon(Icons.phone_rounded)),
                   label: 'Đàm thoại',
@@ -375,10 +391,9 @@ class _showBottomSheet extends State<showBottomSheet> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-
-                      onTap: () {
-                      Navigator.pop(context);
-                      },
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         child: Text(
                           'Hủy',
                           style: TextStyle(

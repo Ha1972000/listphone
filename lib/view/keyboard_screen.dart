@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:listphone/view/edit_screen.dart';
 import 'package:listphone/view/favourite_screen.dart';
 import 'package:listphone/view/homescreen.dart';
-import 'package:listphone/view/nhapso_screen.dart';
+import 'package:listphone/view/keyboard_screen.dart';
 import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -51,15 +51,44 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
       _currentIndex = index;
     });
   }
+  TextEditingController _phoneNumberController = TextEditingController();
+  bool _showClearButton = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen to changes in the TextField to show/hide the clear button
+    _phoneNumberController.addListener(() {
+      setState(() {
+        _showClearButton = _phoneNumberController.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
+
+  void _clearPhoneNumber() {
+    setState(() {
+      _phoneNumberController.clear();
+      _showClearButton = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 100, right: 50, left: 50),
+              padding: const EdgeInsets.only(top: 70, right: 50, left: 50),
               child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                ),
                 controller: TextEditingController(text: inputValue),
                 readOnly:
                     true, // Đảm bảo người dùng không thể chỉnh sửa trực tiếp
@@ -70,6 +99,9 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
                 onBackspacePressed: onBackspacePressed),
           ],
         ),
+
+
+
         bottomNavigationBar: Container(
           height: 60,
           child: BottomNavigationBar(
@@ -97,7 +129,7 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddContact()));
+                                builder: (context) => ContactList()));
                       },
                       child: Icon(Icons.timelapse)),
                   label: 'Gần đây',
@@ -262,29 +294,67 @@ class CustomKeyboard extends StatelessWidget {
         ),
         Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Center(
-              child: Container(
-                width: 75,
-                height: 75,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(50),
-                  // border: Border.all(),
-                ),
-                child: SizedBox(
-                  width: 20,
-                  height: 30,
-                  child: IconButton(
-                    color: Colors.black,
-                    icon: const Icon(
-                      Icons.call,
-                      size: 30,
-                      color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 120),
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(50),
+                      // border: Border.all(),
                     ),
-                    onPressed: _requestPhoneCallPermission,
+                    child: SizedBox(
+                      width: 20,
+                      height: 30,
+                      child: IconButton(
+                        color: Colors.black,
+                        icon: const Icon(
+                          Icons.call,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          _requestPhoneCallPermission;
+
+                        },
+
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(50),
+                      // border: Border.all(),
+                    ),
+                    child: SizedBox(
+                      width: 20,
+                      height: 30,
+                      child: IconButton(
+                        color: Colors.black,
+                        icon: const Icon(
+                          Icons.clear,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+
             )),
       ],
     );

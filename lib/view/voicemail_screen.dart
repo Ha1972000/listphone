@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:listphone/view/favourite_screen.dart';
 import 'package:listphone/view/homescreen.dart';
-import 'package:listphone/view/nhapso_screen.dart';
+import 'package:listphone/view/keyboard_screen.dart';
 
-class ThuThoai extends StatefulWidget {
-  const ThuThoai({super.key});
+class Voicemail extends StatefulWidget {
+  const Voicemail({super.key});
 
   @override
-  State<ThuThoai> createState() => _ThuThoaiState();
+  State<Voicemail> createState() => _VoicemailState();
 }
-class _ThuThoaiState extends State<ThuThoai> {
+class _VoicemailState extends State<Voicemail> {
   int _currentIndex = 0;
 
   void _onItemTapped(int index) {
@@ -81,7 +81,7 @@ class _ThuThoaiState extends State<ThuThoai> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddContact()));
+                                builder: (context) => ContactList()));
                       },
                       child: Icon(Icons.timelapse)),
                   label: 'Gần đây',
