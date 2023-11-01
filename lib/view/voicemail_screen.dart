@@ -9,6 +9,7 @@ class Voicemail extends StatefulWidget {
   @override
   State<Voicemail> createState() => _VoicemailState();
 }
+
 class _VoicemailState extends State<Voicemail> {
   int _currentIndex = 0;
 
@@ -17,6 +18,7 @@ class _VoicemailState extends State<Voicemail> {
       _currentIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,8 +91,10 @@ class _VoicemailState extends State<Voicemail> {
                 BottomNavigationBarItem(
                   icon: InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
                       },
                       child: Icon(Icons.list_alt)),
                   label: 'Danh bạ',
@@ -101,8 +105,7 @@ class _VoicemailState extends State<Voicemail> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    HomeScreen()));
+                                builder: (context) => HomeScreen()));
                       },
                       child: Icon(Icons.confirmation_number)),
                   label: 'Bàn phím',

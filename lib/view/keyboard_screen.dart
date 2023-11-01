@@ -51,6 +51,7 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
       _currentIndex = index;
     });
   }
+
   TextEditingController _phoneNumberController = TextEditingController();
   bool _showClearButton = false;
 
@@ -78,6 +79,7 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
       _showClearButton = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,9 +101,6 @@ class _MyCustomKeyboardState extends State<MyCustomKeyboard> {
                 onBackspacePressed: onBackspacePressed),
           ],
         ),
-
-
-
         bottomNavigationBar: Container(
           height: 60,
           child: BottomNavigationBar(
@@ -297,7 +296,6 @@ class CustomKeyboard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-
                 Padding(
                   padding: const EdgeInsets.only(left: 120),
                   child: Container(
@@ -320,9 +318,7 @@ class CustomKeyboard extends StatelessWidget {
                         ),
                         onPressed: () {
                           _requestPhoneCallPermission;
-
                         },
-
                       ),
                     ),
                   ),
@@ -347,14 +343,12 @@ class CustomKeyboard extends StatelessWidget {
                           size: 25,
                           color: Colors.white,
                         ),
-                        onPressed: () {
-                        },
+                        onPressed: () {},
                       ),
                     ),
                   ),
                 ),
               ],
-
             )),
       ],
     );

@@ -15,7 +15,6 @@ import 'package:image_picker/image_picker.dart';
 import '../model/Contact.dart';
 import 'edit_screen.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -103,9 +102,7 @@ class _ContactListState extends State<ContactList> {
       },
     );
   }
-
 }
-
 
 class ShowBottomSheet extends StatefulWidget {
   final String title;
@@ -115,7 +112,6 @@ class ShowBottomSheet extends StatefulWidget {
   @override
   State<ShowBottomSheet> createState() => _ShowBottomSheetState();
 }
-
 
 class _ShowBottomSheetState extends State<ShowBottomSheet> {
   @override
@@ -129,137 +125,134 @@ class _ShowBottomSheetState extends State<ShowBottomSheet> {
         ),
       ),
       child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Nhóm',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    'Liên hệ',
+        child: Column(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Nhóm',
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: Colors.black,
+                      color: Colors.blue,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(
-                    'Hủy',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
-                    ),
+                ),
+                Text(
+                  'Liên hệ',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
-              ),
+                ),
+                Text(
+                  'Hủy',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: homeScreenViewModel.filteredContacts.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 330),
-                          child: StickyHeader(
-                            header: getItemIcon(index),
-                            content: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Second(
-                                              data: homeScreenViewModel
-                                                  .filteredContacts[index])));
-                                },
-                                child: Text(
-                                  homeScreenViewModel
-                                      .filteredContacts[index].name,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: homeScreenViewModel.filteredContacts.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Divider(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 330),
+                        child: StickyHeader(
+                          header: getItemIcon(index),
+                          content: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ListScreen(
+                                            data: homeScreenViewModel
+                                                .filteredContacts[index])));
+                              },
+                              child: Text(
+                                homeScreenViewModel
+                                    .filteredContacts[index].name,
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
                               ),
                             ),
                           ),
                         ),
-                        // ListTile(
-                        //   title: Text(contacts[index].name),
-                        //   subtitle: Text(contacts[index].phoneNumber),
-                        // ),
-                      ],
-                    );
-                  }),
-            )
-          ]),
+                      ),
+                      // ListTile(
+                      //   title: Text(contacts[index].name),
+                      //   subtitle: Text(contacts[index].phoneNumber),
+                      // ),
+                    ],
+                  );
+                }),
+          )
+        ]),
       ),
-
     );
   }
 
   Widget getItemIcon(index) {
     //TODO:Change UI of this
     return (index == 0 ||
-        homeScreenViewModel.filteredContacts[index].name[0] !=
-            homeScreenViewModel.filteredContacts[index - 1].name[0])
+            homeScreenViewModel.filteredContacts[index].name[0] !=
+                homeScreenViewModel.filteredContacts[index - 1].name[0])
         ? Container(
-      height: 50.0,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Second(
-                      data:
-                      homeScreenViewModel.filteredContacts[index])));
-        },
-        child: Text(
-          homeScreenViewModel.filteredContacts[index].name[0],
-          style: const TextStyle(color: Colors.black26),
-        ),
-      ),
-    )
+            height: 50.0,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ListScreen(
+                            data:
+                                homeScreenViewModel.filteredContacts[index])));
+              },
+              child: Text(
+                homeScreenViewModel.filteredContacts[index].name[0],
+                style: const TextStyle(color: Colors.black26),
+              ),
+            ),
+          )
         : Container(
-      height: 0.0,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: InkWell(onTap: () {
-        // Contact contact = Contact(name: '',group: "",phoneNum: "",birthDay: "",date: "");
-        // var data;
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => Second(data: data),
-        //   ),
-        //
-        // );
-        Text(
-          'Header #$index',
-          style: const TextStyle(color: Colors.black26),
-        );
-      }),
-    );
+            height: 0.0,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.centerLeft,
+            child: InkWell(onTap: () {
+              // Contact contact = Contact(name: '',group: "",phoneNum: "",birthDay: "",date: "");
+              // var data;
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => Second(data: data),
+              //   ),
+              //
+              // );
+              Text(
+                'Header #$index',
+                style: const TextStyle(color: Colors.black26),
+              );
+            }),
+          );
   }
 }
 

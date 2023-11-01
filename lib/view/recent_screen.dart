@@ -43,7 +43,8 @@ class _RecentState extends State<Recent> {
           return ListTile(
             leading: Icon(Icons.call),
             title: Text(homeScreenViewModel.filteredContacts[index].name),
-            subtitle: Text(homeScreenViewModel.filteredContacts[index].phoneNum),
+            subtitle:
+                Text(homeScreenViewModel.filteredContacts[index].phoneNum),
           );
         },
       ),

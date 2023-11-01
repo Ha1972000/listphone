@@ -255,9 +255,9 @@ class _EditScreenState extends State<EditScreen> {
                                                 child: Text(
                                                   "Mặc định",
                                                   style: TextStyle(
-                                                      fontSize: 15,fontWeight: FontWeight.w500
-
-                                                  ),
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
                                               ),
                                             ),
@@ -306,8 +306,9 @@ class _EditScreenState extends State<EditScreen> {
                                                   child: Text(
                                                     "Mặc định",
                                                     style: TextStyle(
-                                                      fontSize: 15,fontWeight: FontWeight.w500
-                                                    ),
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                                   ),
                                                 ),
                                               ),

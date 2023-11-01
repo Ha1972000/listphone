@@ -31,7 +31,7 @@ Widget getItemIcon(BuildContext context , index) {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    Second(
+                    ListScreen(
                         data:
                         homeScreenViewModel.filteredContacts[index])));
       },

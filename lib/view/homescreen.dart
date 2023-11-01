@@ -198,7 +198,7 @@ class _homeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Second(
+                                          builder: (context) => ListScreen(
                                               data: homeScreenViewModel
                                                   .filteredContacts[index])));
                                 },
@@ -312,7 +312,7 @@ class _homeScreenState extends State<HomeScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Second(
+                        builder: (context) => ListScreen(
                             data:
                                 homeScreenViewModel.filteredContacts[index])));
               },

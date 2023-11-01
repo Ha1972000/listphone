@@ -5,13 +5,12 @@ import 'package:listphone/view/edit_screen.dart';
 import 'package:listphone/viewmodel/home_screen_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:listphone/view/edit_screen.dart';
 import '../model/Contact.dart';
 
-class Second extends StatelessWidget {
+class ListScreen extends StatelessWidget {
   final Contact data;
 
-  Second({Key? key, required this.data});
+  ListScreen({Key? key, required this.data});
 
   HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
 
@@ -131,7 +130,7 @@ class Second extends StatelessWidget {
                                           color: Colors.blue,
                                         ),
                                         onPressed: () {
-                                          _showBottomSheet(context);
+                                          _showBottomSheet(context, data); // Pass 'data'
                                         }),
                                   ),
                                 ),
@@ -527,21 +526,29 @@ class Second extends StatelessWidget {
     throw UnimplementedError();
   }
 }
-
-void _showBottomSheet(BuildContext context) {
+void _showBottomSheet(BuildContext context, Contact data) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
-    isScrollControlled: true, // Đ
+    isScrollControlled: true,
     builder: (BuildContext context) {
-      return TextMessageBottomSheet();
+      return TextMessageBottomSheet(data: data); // Pass the 'data' object.
     },
   );
 }
 
 class TextMessageBottomSheet extends StatelessWidget {
+  final Contact data;
+
+  TextMessageBottomSheet({Key? key, required this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    HomeScreenViewModel homeScreenViewModel = HomeScreenViewModel();
+
+    void setInitationVariable() {
+      homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
+    }
     final double height;
     return Container(
       height: 600,
@@ -594,10 +601,10 @@ class TextMessageBottomSheet extends StatelessWidget {
                     color: Colors.black26,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 240),
+                    padding: const EdgeInsets.only(right: 250),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Text('Người nhận :'
+                      child: Text( ' Người nhận : ${data.name}',
                           // 'Người nhận :$text',
                           ),
                     ),
