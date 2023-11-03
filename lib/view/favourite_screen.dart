@@ -15,10 +15,6 @@ import 'package:image_picker/image_picker.dart';
 import '../model/Contact.dart';
 import 'edit_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 class Contactt {
   final String name;
   final String phoneNumber;

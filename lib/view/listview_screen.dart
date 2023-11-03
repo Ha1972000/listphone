@@ -130,7 +130,8 @@ class ListScreen extends StatelessWidget {
                                           color: Colors.blue,
                                         ),
                                         onPressed: () {
-                                          _showBottomSheet(context, data); // Pass 'data'
+                                          _showBottomSheet(
+                                              context, data); // Pass 'data'
                                         }),
                                   ),
                                 ),
@@ -235,9 +236,7 @@ class ListScreen extends StatelessWidget {
               child: Container(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
+                    Container(
                         height: 60,
                         width: 380,
                         decoration: BoxDecoration(
@@ -246,33 +245,49 @@ class ListScreen extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 270, top: 5),
-                                child: Text("điện thoại",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w300)),
-                              ),
-                              Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 250, top: 2),
-                                  child: Text(
-                                    ' ${data.phoneNum}',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.blue,
+                          child: Container(
+                            height: 60,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: InkWell(
+                                onTap: () {
+                                  _requestPhoneCallPermission(); // Gọi hàm này khi container được nhấn
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 270),
+                                      child: Text("điện thoại",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w300)),
                                     ),
-                                  )),
-                            ],
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 260),
+                                      child: Text(
+                                        ' ${data.phoneNum}',
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                        )),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
@@ -391,41 +406,51 @@ class ListScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(0.5),
-                            child: Container(
-                              height: 40,
-                              width: 380,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
-                                color: Colors.white,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text("Gửi Tin Nhắn",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w300)),
+                            child: InkWell(
+                              onTap: () {
+                                _showBottomSheet(context, data); //
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 380,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  color: Colors.white,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text("Gửi Tin Nhắn",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w300)),
+                                ),
                               ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(0.5),
-                            child: Container(
-                              height: 40,
-                              width: 380,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text("Chia sẻ liên hệ",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w300)),
+                            child: InkWell(
+                              onTap: () {
+                                _showShareBottomSheet(context, data);
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 380,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text("Chia sẻ liên hệ",
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w300)),
+                                ),
                               ),
                             ),
                           ),
@@ -526,6 +551,7 @@ class ListScreen extends StatelessWidget {
     throw UnimplementedError();
   }
 }
+
 void _showBottomSheet(BuildContext context, Contact data) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
@@ -536,6 +562,191 @@ void _showBottomSheet(BuildContext context, Contact data) {
     },
   );
 }
+
+void _showShareBottomSheet(BuildContext context, Contact data) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (BuildContext context) {
+      return ShareBottomSheet(
+          data: data); // Pass the 'data' object to the bottom sheet.
+    },
+  );
+}
+
+class ShareBottomSheet extends StatelessWidget {
+  final Contact data;
+
+  ShareBottomSheet({Key? key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 260, // Set the height according to your needs.
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 25, left: 15, right: 15),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  // Điều này tạo ra một hình tròn
+                  child: Image.asset(
+                    "assets/ha.jpg",
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 25, top: 2),
+                      child: Text(' ${data.name}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 2),
+                      child: Text("Thẻ liên hệ"),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 200, top: 2, bottom: 5),
+                  child: IconButton(
+                      icon: Icon(Icons.dangerous),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                )
+              ],
+            ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 10, right: 10, left: 10, bottom: 5),
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Image.asset("assets/airdrop.png",
+                            width: 35, height: 35),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pop(context); // Tắt BottomSheet
+                              shareToFacebook();
+                            },
+                            child: Text('Airdrop')),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Image.asset("assets/tinnhan.png",
+                            width: 35, height: 35),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pop(context); // Tắt BottomSheet
+                              shareToFacebook();
+                            },
+                            child: Text('Tin nhắn')),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Image.asset("assets/zalo.png", width: 35, height: 35),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pop(context); // Tắt BottomSheet
+                              shareToZalo();
+                            },
+                            child: Text('Zalo')),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Image.asset("assets/messenger.png",
+                            width: 35, height: 35),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pop(context); // Tắt BottomSheet
+                              shareToEmail();
+                            },
+                            child: Text('Messenger')),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Image.asset("assets/google.png", width: 35, height: 35),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pop(context); // Tắt BottomSheet
+                              shareToGoogle();
+                            },
+                            child: Text('Google')),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Divider(),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text("Lưu vào tệp",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w300, fontSize: 18)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child:
+                        Image.asset("assets/file.png", width: 30, height: 30),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void shareToZalo() {}
+
+void shareToEmail() {}
+
+void shareToGoogle() {}
+
+void shareToFacebook() {}
 
 class TextMessageBottomSheet extends StatelessWidget {
   final Contact data;
@@ -549,6 +760,7 @@ class TextMessageBottomSheet extends StatelessWidget {
     void setInitationVariable() {
       homeScreenViewModel.filteredContacts = homeScreenViewModel.contacts;
     }
+
     final double height;
     return Container(
       height: 600,
@@ -576,8 +788,8 @@ class TextMessageBottomSheet extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 80),
                   child: InkWell(
-                    onTap: (){
-                        Navigator.pop(context);
+                    onTap: () {
+                      Navigator.pop(context);
                     },
                     child: Text(
                       'Hủy',
@@ -604,9 +816,10 @@ class TextMessageBottomSheet extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 250),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Text( ' Người nhận : ${data.name}',
-                          // 'Người nhận :$text',
-                          ),
+                      child: Text(
+                        ' Người nhận : ${data.name}',
+                        // 'Người nhận :$text',
+                      ),
                     ),
                   ),
                   Divider(
